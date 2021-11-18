@@ -79,3 +79,60 @@ const mahatma = {
     },
     articulos: ["celular", "audifonos", "laptop"],
 };
+
+// Acceder a las propiedades del objeto
+console.log(mahatma.nombre);
+mahatma["nombre"] = "Israel";
+
+mahatma["gastos"] = 0.8;
+console.log(mahatma.gastos)
+
+console.log(Object.keys(mahatma))
+console.log(Object.values(mahatma))
+
+// Eliminar una propiedad
+delete mahatma.ropa;
+console.log(Object.keys(mahatma));
+
+/* Variables por valor o referencia */
+// Variables por valor en JS son las primitivas (Number, String, Boolean)
+let a = 5;
+let b = a;  // Aqui se guarda una primitiva en otra variable
+            // Por lo tanto, se guarda solo el valor
+console.log("a =", a);
+console.log("b =", b);
+a = a + 1;
+console.log("a =", a);
+console.log("b =", b);
+
+// Variables por referencia: object ({}, [])
+let rafael = {
+    nombre: "Rafael"
+};
+// let lenin = rafael;
+// console.log(rafael);
+// console.log(lenin);
+// lenin.nombre = "Lenin";
+// console.log(rafael);
+// console.log(lenin);
+
+// delete rafael.nombre;
+// console.log(rafael)
+// console.log(lenin);
+
+// Clonar objetos
+let lenin = Object.assign({}, rafael);
+console.log(rafael);
+console.log(lenin);
+delete rafael.nombre;
+console.log(rafael);
+console.log(lenin);
+
+let array1 = [1, 2, 3, 4, 5];
+let array2 = Object.assign([], array1);
+console.log(array1);
+console.log(array2);
+array1[0] = 100;
+array2[0] = 200;
+console.log(array1);
+console.log(array2);
