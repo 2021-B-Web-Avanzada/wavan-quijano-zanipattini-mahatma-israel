@@ -130,3 +130,13 @@ const respuestaEvery = arreglo
     );
 
 console.log("Every:", respuestaEvery);
+
+const respuestaReduce = arreglo
+    .reduce(
+        function(valorAcumulado, valorActual, arreglo) {
+            return (valorAcumulado + valorActual.nota);
+        },
+        100 // Acumulador
+    );
+
+console.log(respuestaReduce);
