@@ -1,0 +1,23 @@
+<!--EMMET-->
+<h1>EPN</h1>
+<ul>
+  <li>
+    <a [routerLink]="['/inicio']">Inicio</a>
+  </li>
+  <li>
+    <a [routerLink]="['/login']">Login</a>
+  </li>
+  <li>
+    <a [routerLink]="['/app']">App</a>
+    <ul>
+      <li>
+        <a [routerLink]="['/app', 'usuario']">App Usuario</a>
+      </li>
+      <li>
+        <a [routerLink]="['/app', 'post']">App Post</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
