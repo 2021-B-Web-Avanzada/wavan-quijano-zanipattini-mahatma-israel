@@ -27,23 +27,9 @@ const {handle} = require("express/lib/router");
 app.use("/conjunto", casasRoute);
 
 // Database connection
-// mongoose.connect(
-//     process.env.MongoDB,
-//     () => {
-//         console.log("Success!")
-//     }
-// );
-
-try {
-    mongoose.connect(
+mongoose.connect(
     process.env.MongoDB,
     () => {
         console.log("Success!")
-    });
-} catch (e) {
-    handleError(e);
-}
-
-mongoose.connection.on('error', err => {
-    console.log(err);
-});
+    }
+);
