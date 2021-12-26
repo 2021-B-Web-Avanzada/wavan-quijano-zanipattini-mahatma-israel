@@ -8,6 +8,7 @@ import {RutaUsuarioComponent} from "./rutas/ruta-usuario/ruta-usuario.component"
 import {RutaPostComponent} from "./rutas/ruta-post/ruta-post.component";
 import {RutaAppComponent} from "./rutas/ruta-app/ruta-app.component";
 import {EstaLogeadoGuard} from "./esta-logeado.guard";
+import {EsAdministradorGuard} from "./es-administrador.guard";
 
 const routes: Routes = [
   {
@@ -37,7 +38,8 @@ const routes: Routes = [
       },
       {
         path: 'post',
-        component: RutaPostComponent
+        component: RutaPostComponent,
+        canActivate: [EsAdministradorGuard]
       }
     ]
   },
@@ -45,6 +47,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
+  },
+  {
+    path: 'lazy-inventario',
+    loadChildren: () => import("./modulos/modulo-inventario/modulo-inventario.module")
+      .then(m => m.ModuloInventarioModule)
   },
   {
     path: '**',
