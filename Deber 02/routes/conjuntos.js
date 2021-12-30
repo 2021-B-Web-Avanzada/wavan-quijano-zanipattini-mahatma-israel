@@ -10,7 +10,6 @@ router.post("/", async (req, res) => {
         area: req.body.area,
         fechaApertura: req.body.fechaApertura,
         estrellas: req.body.estrellas,
-        //TODO casas: [],
     });
 
     // Save to DB
