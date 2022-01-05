@@ -1,0 +1,21 @@
+<style>
+  .btn-primary {
+    background-color: #4b22f4;
+    border-color: #4b22f4;
+    border-radius: 5px;
+    padding: 0 40px;
+    height: 48px;
+  }
+</style>
+
+<div [ngStyle]="{
+  'background-image': 'url(' + assets[currentAssetIndex]['imgUrl'] + ')',
+  'background-position': 'center',
+  'width': '60%',
+  'height': '250px',
+  'border-radius': '5px'
+}">
+  <p style="color: white; padding-top: 5%; padding-left: 5%; font-weight: bold">{{assets[currentAssetIndex]['title']}}</p>
+  <p style="color: white; padding-left: 5%;">{{assets[currentAssetIndex]['description']}}</p>
+  <button class="btn btn-primary" style="margin-left: 5%">Ver detalles</button>
+</div>
