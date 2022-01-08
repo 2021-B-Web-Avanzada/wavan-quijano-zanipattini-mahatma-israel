@@ -37,6 +37,16 @@ export class CoursesRouteComponent implements OnInit {
       currentPrice: 14,
       totalPrice: 35,
       imgUrl: "https://crehana-public-catalog.imgix.net/images/courses/promo-images/ff50948e/81b7b309.jpg?auto=format&w=auto&h=200&q=75&crop=faces&fit=crop"
+    },
+    {
+      label: "Sin Etiqueta",
+      score: 4.91,
+      students: 812,
+      title: "Fundamentos de Base de datos",
+      professor: "Mario Hernández",
+      currentPrice: 9.99,
+      totalPrice: 20,
+      imgUrl: "https://crehana-public-catalog.imgix.net/images/courses/promo-images/7984a1e1/286f5dd4.jpeg?auto=format&w=420&h=242&q=75&crop=faces&fit=crop"
     }
   ]
 

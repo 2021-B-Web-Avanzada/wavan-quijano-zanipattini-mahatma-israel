@@ -1,46 +1,96 @@
 <style>
-  .label {
+  #courseComponent {
+    width: 23%;
+    height: 500px;
+    border-radius: 20px;
+  }
+  #courseComponent:hover {
+    box-shadow: 0 0 20px #e9e8ed;
+  }
+  #courseImage {
+    background-position: center;
+    background-size: cover;
+    width: 100%; height: 60%;
+    text-align: center;
+  }
+  #showTrailer {
+    position: relative;
+    background: rgba(24, 27, 50, 0.8);
+    width: 100%; height: 100%;
+    font-family: 'Spartan', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .info {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: white;
+  }
+  #label {
     position: absolute;
     top: 12px;
     left: 12px;
     padding: 4px 8px;
     border-radius: 5px;
+    font-size: 12px;
   }
-  .score {
+  #score {
+    font-size: 14px;
     position: absolute;
     padding: 12px;
     right: 0;
     top: 0;
   }
-  .students {
+  #students {
+    font-size: 14px;
     position: absolute;
     bottom: 52%;
     right: 0;
     padding: 12px;
   }
-  .title {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
+  #playButton {
+    background-color: rgba(75, 34, 244, 0.6);
+    height: 32px;
+    width: 32px;
+  }
+  span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+  }
+  #title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
     color: #181B32;
   }
-  .professor {
-    font-family: Arial, sans-serif;
+  #professor {
+    font-family: 'Nunito', sans-serif;
     font-size: 14px;
+    font-weight: 400;
     color: #181B32;
   }
-  .price {
-    font-family: SansSerif, monospace;
+  #price {
+    font-family: 'Spartan', sans-serif;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 800;
     color: #E6215D;
   }
-  .discountPrice {
-    font-family: SansSerif, monospace;
+  #discountPrice {
+    font-family: 'Nunito', sans-serif;
     font-size: 14px;
+    font-weight: 400;
+    margin-left: 8px;
     color: #8D8D9D;
   }
   .btn-primary {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
     background-color: #4b22f4;
     border-color: #4b22f4;
     border-radius: 10px;
@@ -50,53 +100,86 @@
     border-color: #9c86f9;
   }
   .btn-secondary {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
     background-color: white;
     border-color: #4b22f4;
     border-radius: 10px;
     color: #4b22f4;
-    font-weight: bold;
+    fill: #E6215D;
   }
-  .btn-secondary:hover {
+  #gift {
+    text-align: center;
+  }
+  #gift:hover {
+    color: #9c86f9;
+    border-color: #9c86f9;
+  }
+  #gift:hover svg{
+    fill: #9c86f9;
+  }
+  #shoppingCart {
+    margin-right: 14px;
+    padding-left: 9px;
+    padding-right: 9px;
+    height: 48px;
+  }
+  #shoppingCart:hover {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
     box-shadow: 0 5px 5px #e9e8ed;
   }
-  .shoppingCart {
-    margin-right: 12px;
-    padding-left: 9px;
-    padding-right: 9px;
-    height: 48px
-  }
 </style>
 
-<div class="card  rounded" style="width: 23%; height: 500px; border-radius: 20px;">
-  <div [ngStyle]="{
-    'background-image': 'url(' + course.imgUrl + ')',
-    'background-position': 'center',
-    'background-size': 'cover',
-    'width': '100%', 'height': '60%'
-  }" class="rounded-top">
-    <div class="label" [ngStyle]="{'background-color': labelColor}">
-      {{course.label}}
+<div id="courseComponent" class="card border-0 rounded">
+  <!-- Course Image -->
+  <div id="courseImage" [ngStyle]="{
+    'background-image': 'linear-gradient(to bottom, transparent, rgba(24, 27, 50, 1)), url(' + course.imgUrl + ')'
+  }" class="rounded-top" (mouseenter)="courseImageOnHover()" (mouseleave)="courseImageLeaveHover()">
+    <div *ngIf="showLabel" id="label" class="info" [ngStyle]="{'background-color': labelColor}">
+      <span>{{course.label}}</span>
     </div>
-    <div class="score">{{course.score}}</div>
-    <div class="students">{{course.students}}</div>
+    <div id="score" class="info">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffb200" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5614 21.0007C17.4034 21.0007 17.2444 20.9637 17.0984 20.8877L11.9994 18.2237L6.90138 20.8877C6.56338 21.0627 6.15538 21.0327 5.84938 20.8087C5.54138 20.5847 5.38838 20.2057 5.45338 19.8307L6.42438 14.2027L2.30438 10.2177C2.03038 9.95272 1.93138 9.55472 2.04838 9.19072C2.16538 8.82872 2.47838 8.56372 2.85638 8.50972L8.55638 7.68172L11.1044 2.55572C11.4424 1.87572 12.5574 1.87572 12.8954 2.55572L15.4434 7.68172L21.1434 8.50972C21.5214 8.56372 21.8344 8.82872 21.9514 9.19072C22.0684 9.55472 21.9694 9.95272 21.6954 10.2177L17.5754 14.2027L18.5464 19.8307C18.6114 20.2057 18.4574 20.5847 18.1504 20.8087C17.9764 20.9367 17.7694 21.0007 17.5614 21.0007Z"></path></svg>
+      <span style="padding-left: 4px">{{course.score}}</span>
+    </div>
+    <div id="students" class="info">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 11C11.206 11 13 9.206 13 7C13 4.794 11.206 3 9 3C6.794 3 5 4.794 5 7C5 9.206 6.794 11 9 11ZM17 13C18.654 13 20 11.654 20 10C20 8.346 18.654 7 17 7C15.346 7 14 8.346 14 10C14 11.654 15.346 13 17 13ZM22 19C22 19.552 21.553 20 21 20H16C16 20.552 15.553 21 15 21H3C2.447 21 2 20.552 2 20C2 16.14 5.141 13 9 13C10.927 13 12.673 13.783 13.94 15.046C14.809 14.374 15.879 14 17 14C19.757 14 22 16.243 22 19Z"></path></svg>
+      <span style="padding-left: 4px">{{course.students}}</span>
+    </div>
+    <!-- Play Button -->
+    <div *ngIf="!showTrailer" class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%">
+      <div id="playButton" class="rounded-circle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 12L5.5 21.5263L5.5 2.47372L22 12Z" fill="#ffffff"></path></svg>
+      </div>
+    </div>
+    <!-- Show Trailer -->
+    <div id="showTrailer" *ngIf="showTrailer" class="d-flex justify-content-center align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24.75" height="24" viewBox="0 0 33 32"><path fill="#fff" d="M16.682 26.367c-5.495 0-10.887-3.060-16.021-9.098-0.399-0.468-0.433-1.145-0.086-1.651 0.28-0.409 6.945-9.983 16.301-9.983 5.543 0 10.743 3.352 15.451 9.962 0.329 0.464 0.337 1.081 0.022 1.55-0.254 0.376-6.302 9.22-15.666 9.22zM3.453 16.324c4.364 4.856 8.812 7.318 13.229 7.318 6.436 0 11.25-5.273 12.839-7.267-3.999-5.32-8.249-8.018-12.648-8.018-6.438 0.001-11.666 5.772-13.421 7.967z"></path><path fill="#fff" d="M16.457 9.444c-3.622 0-6.557 2.936-6.557 6.557s2.935 6.557 6.557 6.557c3.621 0 6.556-2.938 6.556-6.557 0-3.622-2.935-6.557-6.556-6.557zM18.805 16.098c-1.459 0-2.643-1.184-2.643-2.641 0-1.461 1.184-2.644 2.643-2.644s2.641 1.182 2.641 2.644c0.001 1.458-1.182 2.641-2.641 2.641z"></path></svg>
+      <span style="margin-left: 8px;">Ver Trailer</span>
+    </div>
   </div>
+  <!-- Course Info -->
   <div style="padding: 16px">
-    <p class="title">{{course.title}}</p>
-    <p class="professor">Por {{course.professor}}</p>
-    <span class="price">
+    <p id="title">{{course.title}}</p>
+    <p id="professor">Por {{course.professor}}</p>
+    <span id="price">
       US{{course.currentPrice | currency}}
     </span>
-    <s class="discountPrice">
+    <s id="discountPrice">
       US{{course.totalPrice | currency}}
     </s>
-    <div style="padding-top: 16px">
-      <button type="button" class="btn btn-secondary shoppingCart">
-        <img src="https://i.imgur.com/GdBRzMK.png" style="width: 24px; height: 24px;" alt="Carro de compra">
+    <!-- Buttons -->
+    <div style="padding-top: 16px" class="d-flex justify-content-between">
+      <button type="button" id="shoppingCart" class="btn btn-secondary">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M19.853 15.972H8.264c-.432 0-.691-.26-.864-.605L5.15 7.324c-.086-.26 0-.519.173-.778.173-.173.432-.346.692-.346H22.1c.26 0 .52.086.692.346.173.173.26.519.173.778-.778 2.681-1.47 5.362-2.248 8.043-.087.346-.433.605-.865.605ZM8.87 14.242h10.29c.606-2.075 1.125-4.237 1.73-6.313H7.14l1.73 6.313Z" fill="var(--color-primary-main, #4B22F4)"/><path d="M8.264 15.972c-.346 0-.691-.26-.864-.605L4.546 4.817 1.865 4.73A.867.867 0 0 1 1 3.865c0-.52.432-.865.865-.865l3.286.173a.83.83 0 0 1 .778.605l3.027 11.156c.087.433-.173.952-.605 1.038h-.087ZM10.34 21.161a2.417 2.417 0 0 1-2.422-2.422c0-1.297 1.038-2.335 2.422-2.335 1.297 0 2.421 1.038 2.421 2.335-.086 1.384-1.124 2.422-2.421 2.422Zm0-3.027a.682.682 0 0 0-.692.692c0 .346.26.692.692.692.346 0 .692-.26.692-.692-.087-.432-.346-.692-.692-.692ZM17.518 21.161a2.417 2.417 0 0 1-2.422-2.422c0-1.297 1.038-2.335 2.422-2.335 1.297 0 2.421 1.038 2.421 2.335a2.417 2.417 0 0 1-2.421 2.422Zm0-3.027a.682.682 0 0 0-.692.692c0 .346.26.692.692.692.346 0 .692-.26.692-.692a.682.682 0 0 0-.692-.692Z" fill="var(--color-primary-main, #4B22F4)"/></svg>
       </button>
       <button type="button" class="btn btn-primary" style="width: 85%; height: 48px">Comprar ahora</button>
     </div>
-    <button type="button" class="btn btn-secondary" style="width: 100%; height: 48px; margin-top: 12px">Regalar a un amigo</button>
+    <button type="button" id="gift" class="btn btn-secondary" style="width: 100%; height: 48px; margin-top: 12px">
+      <svg width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="#4b22f4"><path fill-rule="evenodd" clip-rule="evenodd" d="M49.1825 56H34.1825V40.7253H51.6358V53.576C51.6358 54.9146 50.5372 56 49.1825 56ZM12.3646 53.5747V40.7267H29.818V56.0013H14.818C13.4633 56.0013 12.3646 54.9133 12.3646 53.5747ZM53.599 18.9088H48.687C49.1644 17.9141 49.455 16.8128 49.455 15.6341C49.455 11.4261 46.0284 7.99945 41.8177 7.99945C36.8017 7.99945 33.7617 11.5195 31.999 14.8501C30.2364 11.5195 27.199 7.99945 22.183 7.99945C17.9724 7.99945 14.543 11.4261 14.543 15.6341C14.543 16.8128 14.8364 17.9141 15.3137 18.9088H10.4017C9.07636 18.9088 7.99902 20.4715 7.99902 22.4021V32.8715C7.99902 34.7994 9.07636 36.3648 10.4017 36.3648H12.3644H29.8177V18.9088H34.183V36.3648H51.6364H53.599C54.9244 36.3648 55.999 34.7994 55.999 32.8715V22.4021C55.999 20.4715 54.9244 18.9088 53.599 18.9088ZM41.8177 18.9088H34.935C35.9644 16.1995 38.0817 12.3648 41.8177 12.3648C43.623 12.3648 45.0924 13.8315 45.0924 15.6341C45.0924 17.4395 43.623 18.9088 41.8177 18.9088ZM22.183 18.9088C20.3777 18.9088 18.9084 17.4395 18.9084 15.6341C18.9084 13.8315 20.3777 12.3648 22.183 12.3648C25.919 12.3648 28.0364 16.1995 29.0657 18.9088H22.183Z"></path></svg>
+      <span>Regalar a un amigo</span>
+    </button>
   </div>
 </div>

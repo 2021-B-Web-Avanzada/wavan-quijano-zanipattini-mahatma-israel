@@ -5,6 +5,8 @@
 })
 export class CourseComponent implements OnInit {
 
+  NO_LABEL = "Sin Etiqueta";
+
   @Input() course = {
     label: "Label",
     score: 0.00,
@@ -32,16 +34,30 @@ export class CourseComponent implements OnInit {
   ]
 
   labelColor: String = "#FFFFFF";
+  showLabel = true;
+  showTrailer = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    if (this.course.label == this.NO_LABEL) {
+      this.showLabel = false;
+      return;
+    }
     this.labels.forEach(label => {
-      if (label.labelName == this.course.label) {
+      if (this.course.label == label.labelName) {
         this.labelColor = label.color;
-        return
+        return;
       }
     });
+  }
+
+  courseImageOnHover() {
+    this.showTrailer = true;
+  }
+
+  courseImageLeaveHover() {
+    this.showTrailer = false;
   }
 
 }
