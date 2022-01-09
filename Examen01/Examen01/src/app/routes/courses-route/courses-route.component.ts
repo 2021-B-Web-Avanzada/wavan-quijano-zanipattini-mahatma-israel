@@ -47,6 +47,26 @@ export class CoursesRouteComponent implements OnInit {
       currentPrice: 9.99,
       totalPrice: 20,
       imgUrl: "https://crehana-public-catalog.imgix.net/images/courses/promo-images/7984a1e1/286f5dd4.jpeg?auto=format&w=420&h=242&q=75&crop=faces&fit=crop"
+    },
+    {
+      label: "Popular",
+      score: 4.93,
+      students: 520,
+      title: "Ilustración de retratos con procreate",
+      professor: "Maria Camila Ramírez Borbón",
+      currentPrice: 9.99,
+      totalPrice: 20,
+      imgUrl: "https://crehana-public-catalog.imgix.net/images/courses/promo-images/130d7ae9/0d7fa356.jpg?auto=format&w=420&h=242&q=75&crop=faces&fit=crop"
+    },
+    {
+      label: "Más vendidos",
+      score: 4.91,
+      students: 2297,
+      title: "Efectividad Publicitaria",
+      professor: "Leandro Vazquez",
+      currentPrice: 9.99,
+      totalPrice: 20,
+      imgUrl: "https://crehana-public-catalog.imgix.net/images/courses/promo-images/5e57bf03/c6c129a0.jpg?auto=format&w=420&h=242&q=75&crop=faces&fit=crop"
     }
   ]
 

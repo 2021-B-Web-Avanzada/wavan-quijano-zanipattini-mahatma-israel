@@ -36,6 +36,11 @@ export class SliderComponent implements OnInit {
     },3000);
   }
 
+  changeImage(index: number) {
+    if (this.currentAssetIndex < this.assets.length && this.currentAssetIndex >= 0)
+      this.currentAssetIndex = index;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

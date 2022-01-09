@@ -74,6 +74,12 @@
     font-weight: 400;
     color: #181B32;
   }
+  #free {
+    font-family: "Mitr", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4b22f4;
+  }
   #price {
     font-family: 'Spartan', sans-serif;
     font-size: 18px;
@@ -109,14 +115,14 @@
     color: #4b22f4;
     fill: #E6215D;
   }
-  #gift {
+  .gift {
     text-align: center;
   }
-  #gift:hover {
+  .gift:hover {
     color: #9c86f9;
     border-color: #9c86f9;
   }
-  #gift:hover svg{
+  .gift:hover svg{
     fill: #9c86f9;
   }
   #shoppingCart {
@@ -132,7 +138,7 @@
   }
 </style>
 
-<div id="courseComponent" class="card border-0 rounded">
+<div id="courseComponent" class="card border-0 rounded" style="width: 100%">
   <!-- Course Image -->
   <div id="courseImage" [ngStyle]="{
     'background-image': 'linear-gradient(to bottom, transparent, rgba(24, 27, 50, 1)), url(' + course.imgUrl + ')'
@@ -164,20 +170,24 @@
   <div style="padding: 16px">
     <p id="title">{{course.title}}</p>
     <p id="professor">Por {{course.professor}}</p>
-    <span id="price">
+    <span *ngIf="isFree" id="free">Gratis</span>
+    <span *ngIf="!isFree" id="price">
       US{{course.currentPrice | currency}}
     </span>
-    <s id="discountPrice">
+    <s *ngIf="!isFree" id="discountPrice">
       US{{course.totalPrice | currency}}
     </s>
     <!-- Buttons -->
-    <div style="padding-top: 16px" class="d-flex justify-content-between">
+    <button *ngIf="isFree" type="button" class="btn btn-secondary gift" style="width: 100%; height: 48px; margin-top: 12px">
+      <span>¡Inscríbete gratis!</span>
+    </button>
+    <div *ngIf="!isFree" style="padding-top: 16px" class="d-flex justify-content-between">
       <button type="button" id="shoppingCart" class="btn btn-secondary">
         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M19.853 15.972H8.264c-.432 0-.691-.26-.864-.605L5.15 7.324c-.086-.26 0-.519.173-.778.173-.173.432-.346.692-.346H22.1c.26 0 .52.086.692.346.173.173.26.519.173.778-.778 2.681-1.47 5.362-2.248 8.043-.087.346-.433.605-.865.605ZM8.87 14.242h10.29c.606-2.075 1.125-4.237 1.73-6.313H7.14l1.73 6.313Z" fill="var(--color-primary-main, #4B22F4)"/><path d="M8.264 15.972c-.346 0-.691-.26-.864-.605L4.546 4.817 1.865 4.73A.867.867 0 0 1 1 3.865c0-.52.432-.865.865-.865l3.286.173a.83.83 0 0 1 .778.605l3.027 11.156c.087.433-.173.952-.605 1.038h-.087ZM10.34 21.161a2.417 2.417 0 0 1-2.422-2.422c0-1.297 1.038-2.335 2.422-2.335 1.297 0 2.421 1.038 2.421 2.335-.086 1.384-1.124 2.422-2.421 2.422Zm0-3.027a.682.682 0 0 0-.692.692c0 .346.26.692.692.692.346 0 .692-.26.692-.692-.087-.432-.346-.692-.692-.692ZM17.518 21.161a2.417 2.417 0 0 1-2.422-2.422c0-1.297 1.038-2.335 2.422-2.335 1.297 0 2.421 1.038 2.421 2.335a2.417 2.417 0 0 1-2.421 2.422Zm0-3.027a.682.682 0 0 0-.692.692c0 .346.26.692.692.692.346 0 .692-.26.692-.692a.682.682 0 0 0-.692-.692Z" fill="var(--color-primary-main, #4B22F4)"/></svg>
       </button>
       <button type="button" class="btn btn-primary" style="width: 85%; height: 48px">Comprar ahora</button>
     </div>
-    <button type="button" id="gift" class="btn btn-secondary" style="width: 100%; height: 48px; margin-top: 12px">
+    <button type="button" class="btn btn-secondary gift" style="width: 100%; height: 48px; margin-top: 12px">
       <svg width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="#4b22f4"><path fill-rule="evenodd" clip-rule="evenodd" d="M49.1825 56H34.1825V40.7253H51.6358V53.576C51.6358 54.9146 50.5372 56 49.1825 56ZM12.3646 53.5747V40.7267H29.818V56.0013H14.818C13.4633 56.0013 12.3646 54.9133 12.3646 53.5747ZM53.599 18.9088H48.687C49.1644 17.9141 49.455 16.8128 49.455 15.6341C49.455 11.4261 46.0284 7.99945 41.8177 7.99945C36.8017 7.99945 33.7617 11.5195 31.999 14.8501C30.2364 11.5195 27.199 7.99945 22.183 7.99945C17.9724 7.99945 14.543 11.4261 14.543 15.6341C14.543 16.8128 14.8364 17.9141 15.3137 18.9088H10.4017C9.07636 18.9088 7.99902 20.4715 7.99902 22.4021V32.8715C7.99902 34.7994 9.07636 36.3648 10.4017 36.3648H12.3644H29.8177V18.9088H34.183V36.3648H51.6364H53.599C54.9244 36.3648 55.999 34.7994 55.999 32.8715V22.4021C55.999 20.4715 54.9244 18.9088 53.599 18.9088ZM41.8177 18.9088H34.935C35.9644 16.1995 38.0817 12.3648 41.8177 12.3648C43.623 12.3648 45.0924 13.8315 45.0924 15.6341C45.0924 17.4395 43.623 18.9088 41.8177 18.9088ZM22.183 18.9088C20.3777 18.9088 18.9084 17.4395 18.9084 15.6341C18.9084 13.8315 20.3777 12.3648 22.183 12.3648C25.919 12.3648 28.0364 16.1995 29.0657 18.9088H22.183Z"></path></svg>
       <span>Regalar a un amigo</span>
     </button>

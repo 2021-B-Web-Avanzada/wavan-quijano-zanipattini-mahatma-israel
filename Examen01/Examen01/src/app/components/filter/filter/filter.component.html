@@ -1,0 +1,82 @@
+<style>
+  label {
+    font-family: "Nunito", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #878fb8;
+    margin-right: 8px;
+    padding-top: 5px;
+  }
+  select {
+    height: fit-content;
+    width: max-content;
+    font-family: "Mitr", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #0bd4c1;
+  }
+  select:hover {
+    color: #49f2d2;
+  }
+  .custom-select {
+    position: relative;
+  }
+  #tag {
+    font-family: Mitr, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    width: 130px;
+    color: #0bd4c1;
+    cursor: pointer;
+  }
+  #options {
+    width: 182px; height: 224px;
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    box-shadow: 0 0 10px #e9e8ed;
+  }
+  .option {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .option:hover, .option:hover a {
+    background-color: #f6f7f9;
+    color: #4b22f4;
+  }
+  a {
+    text-decoration: none;
+  }
+  span {
+    font-family: Nunito, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #181b32;
+  }
+</style>
+
+<div class="row d-flex">
+  <div class="d-flex justify-content-start align-items-center">
+    <label>ORDENAR POR</label>
+    <!-- Container -->
+    <div class="custom-select" (click)="showOptions = !showOptions; clickedIn = true;">
+      <!-- Combo Box -->
+      <div id="tag" class="d-flex align-items-center justify-content-between">
+        {{getTag()}}
+        <svg class="fill-current ml-8 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#0bd4c1"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+      </div>
+      <!-- Options -->
+      <div *ngIf="showOptions" id="options" class="d-flex flex-column border" style="height: max-content">
+        <!-- Every option -->
+        <div *ngFor="let option of courses; let i = index;" class="option d-flex align-items-center">
+          <a [routerLink]="[option.route]" (click)="sendSelection(i)"
+             class=" d-flex justify-content-between w-100 h-100 align-items-center">
+            <span>{{option.tag}}</span>
+            <svg *ngIf="option.title == selectedTitle"
+              width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.86338 18C9.58738 18 9.32338 17.886 9.13438 17.685L4.27138 12.506C3.89238 12.104 3.91338 11.471 4.31538 11.093C4.71838 10.715 5.35138 10.735 5.72838 11.137L9.85338 15.528L18.2614 6.32599C18.6354 5.91699 19.2674 5.88999 19.6754 6.26199C20.0824 6.63399 20.1104 7.26699 19.7384 7.67399L10.6014 17.674C10.4144 17.88 10.1484 17.998 9.87038 18H9.86338Z" fill="#34D69B"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

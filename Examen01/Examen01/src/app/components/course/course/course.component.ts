@@ -6,6 +6,7 @@
 export class CourseComponent implements OnInit {
 
   NO_LABEL = "Sin Etiqueta";
+  FREE_COURSE = "Curso gratis";
 
   @Input() course = {
     label: "Label",
@@ -30,12 +31,21 @@ export class CourseComponent implements OnInit {
     {
       labelName: "Nuevo",
       color: "#0099ff"
+    },
+    {
+      labelName: this.FREE_COURSE,
+      color: "#9C86F9"
+    },
+    {
+      labelName: "Oferta",
+      color: "#4B22F4"
     }
   ]
 
   labelColor: String = "#FFFFFF";
   showLabel = true;
   showTrailer = false;
+  isFree = false;
 
   constructor() { }
 
@@ -46,6 +56,7 @@ export class CourseComponent implements OnInit {
     }
     this.labels.forEach(label => {
       if (this.course.label == label.labelName) {
+        this.isFree = this.course.label == this.FREE_COURSE;
         this.labelColor = label.color;
         return;
       }
