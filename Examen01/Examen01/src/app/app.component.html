@@ -16,9 +16,6 @@
     font-weight: 700;
     color: #181b32;
   }
-  #filters button svg:active {
-
-  }
   .route {
     border-left: 4px white solid;
     padding-left: 4px;
@@ -237,6 +234,10 @@
     border: 2px #878fb8 solid;
     border-radius: 5px;
   }
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
 </style>
 
 <div class="container-fluid pl-2 pr-0">
@@ -354,7 +355,7 @@
             <div class="w-100">
               <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showCategories = !showCategories;">
                 Categorías
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showCategories)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
               </button>
               <div id="categories" *ngIf="showCategories" class="overflow-scroll">
                 <div *ngFor="let category of categories" class="d-flex py-0 my-4 align-items-center">
@@ -369,7 +370,7 @@
             <div class="w-100">
               <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showLevels = !showLevels;">
                 Niveles
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showLevels)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
               </button>
               <div class="filter" *ngIf="showLevels">
                 <label *ngFor="let level of levels" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="level + 'Check'">
@@ -384,7 +385,7 @@
             <div class="w-100">
               <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showSoftware = !showSoftware;">
                 Software
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showSoftware)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
               </button>
               <div class="filter" *ngIf="showSoftware">
                 <label *ngFor="let soft of software" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="soft + 'Check'">
@@ -399,7 +400,7 @@
             <div class="w-100">
               <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showDurations = !showDurations;">
                 Duración
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showDurations)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
               </button>
               <div class="filter" *ngIf="showDurations">
                 <label *ngFor="let duration of durations" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="duration + 'Check'">
@@ -414,7 +415,7 @@
             <div class="w-100">
               <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showLanguages = !showLanguages;">
                 Idioma
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showLanguages)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
               </button>
               <div class="filter" *ngIf="showLanguages">
                 <label *ngFor="let language of languages" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="language + 'Check'">

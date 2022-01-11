@@ -70,4 +70,8 @@ export class AppComponent {
       }
     });
   }
+
+  turnArrow(open: boolean) {
+    return {'transform': (open)? 'rotate(0)' : 'rotate(180deg)'}
+  }
 }
