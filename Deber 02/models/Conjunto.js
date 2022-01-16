@@ -22,11 +22,6 @@ const ConjuntoSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    // Sub-collection?
-    // casas: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Casas",
-    // }]
 });
 
 module.exports = mongoose.model("Conjuntos", ConjuntoSchema);

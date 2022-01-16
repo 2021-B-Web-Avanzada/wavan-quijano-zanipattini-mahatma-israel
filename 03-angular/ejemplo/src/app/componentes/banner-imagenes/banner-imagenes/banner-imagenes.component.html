@@ -1,0 +1,41 @@
+<h1 [ngStyle]="{
+  'background-color': '#000',
+  'color': color,
+  'border': 'solid 5px ' + color
+}">
+  HOLA DESDE BANNER
+</h1>
+
+<!-- Interpolación -->
+<h2>{{nombre}} - {{apellido}}</h2>
+
+<p>Mascota: {{mascotas.firulais.edad}}</p>
+
+<!-- Property Binding [] -->
+<img [src]="urlImagen" alt="">
+<a [href]="url" target="_blank">
+  Mas información
+</a>
+
+<!-- Event binding () -->
+<button (click)="ejecutarEventoClick()"
+        (blur)="ejecutarEventoBlur()">
+  Event Binding
+</button>
+
+
+<!-- Pipes -->
+<p>{{fecha | date: 'dd-MM-YYYY'}}</p>
+
+<p>{{sueldo | currency}}</p>
+
+<pre>
+  {{mascotas | json}}
+</pre>
+
+
+
+
+
+
+

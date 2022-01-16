@@ -1,0 +1,551 @@
+<style>
+  #menu button {
+    font-family: 'Mitr', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  #filters p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8d8d9d;
+  }
+  #filters button {
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #181b32;
+  }
+  .route {
+    border-left: 4px white solid;
+    padding-left: 4px;
+  }
+  .accessed {
+    border-left: 4px #4b22f4 solid !important;
+    padding-left: 4px;
+    color: #4b22f4 !important;
+  }
+  .links span, .links {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #181b32;
+    text-decoration: none !important;
+    cursor: pointer;
+  }
+  .offer {
+    margin-right: 8px;
+  }
+  .links:hover span, .links:hover {
+    border-color: #f6f7f9;
+    color: #4b22f4;
+  }
+  #searchBar {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    height: 40px;
+    border-radius: 5px 0 0 5px;
+    border-color: #8d8d9d;
+  }
+  #searchIcon {
+    background-color: #9c86f9;
+    border-radius: 0 5px 5px 0;
+    height: 40px;
+  }
+  #verticalBar {
+    padding-left: 12px;
+    border-right: #c3cbd6 1px solid;
+    height: 26px;
+  }
+  .horizontalBar {
+    border-bottom: #c3cbd6 1px solid;
+    padding-top: 16px;
+    margin-bottom: 16px;
+  }
+  #categories {
+    height: 250px;
+  }
+  #categories div span {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 8px;
+  }
+  .filter {
+    height: max-content;
+  }
+  .form-check-input {
+    background-color: transparent;
+    width: 20px; height: 20px;
+    border-radius: 2px;
+  }
+  .form-check-label {
+    padding-left: 16px;
+  }
+  .form-check-label span {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 16px;
+  }
+  .form-check-label:hover, .form-check-label:hover .form-check-input {
+    background-color: #e5f5ff;
+  }
+  .form-check-input:checked, .form-check-label:hover .form-check-input:checked {
+    background-color: #0bd4c1;
+    border-color: #0bd4c1;
+  }
+  #shoppingCart:hover svg, #shoppingCart:hover svg #cartFiller {
+    fill: #6f4ef6;
+  }
+  #login, #signIn {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Mitr', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 5px;
+    width: max-content;
+  }
+  #signIn {
+    background-color: #4b22f4;
+    border-color: #4b22f4;
+    color: white;
+  }
+  #signIn:hover {
+    background-color: #9c86f9;
+    border-color: #9c86f9;
+  }
+  #login {
+    margin-right: 10px;
+    background-color: white;
+    border-color: #4b22f4;
+    color: #4b22f4;
+    fill: #E6215D;
+  }
+  #login:hover {
+    color: #9c86f9;
+    border-color: #9c86f9;
+  }
+  #title {
+    font-family: "Spartan", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  /* Scroll Bar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track:hover {
+    border-radius: 10px;
+    background-color: #e8e8e8;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #aaaaaa;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8b8b8b;
+  }
+  #goUp {
+    width: 122px; height: 24px;
+    margin: 8px 24px 8px 0;
+  }
+  #goUp span {
+    font-family: Mitr, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0bd4c1;
+  }
+  .navButtons {
+    width: 372px;
+  }
+  .navButtons button {
+    width: 48px; height: 48px;
+  }
+  .navButtons span {
+    font-family: Nunito, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #8d8d9d;
+  }
+  #numPag {
+    color: #181b32;
+  }
+  .deactivated svg{
+    fill: #c3cbd6;
+  }
+  .activated svg{
+    fill: #4b22f4;
+  }
+  .activated {
+    border: 2px #e8eaf0 solid;
+    border-radius: 5px;
+  }
+  .deactivated {
+    cursor: default;
+  }
+  .activated:hover {
+    border-color: #4b22f4;
+  }
+  .footer span {
+    font-family: Mitr, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #070e27;
+  }
+  .footer a {
+    font-family: Nunito, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #070e27;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .footer a:hover {
+    color: #0bd4c1;
+  }
+  .footer button {
+    background-color: #070e27;
+    width: 172px; height: 48px;
+    padding: 0 24px;
+    border-radius: 5px;
+  }
+  .footer button span {
+    color: white;
+    font-family: Mitr, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .footer button:hover {
+    background-color: #9c86f9;
+  }
+  #copyright {
+    font-family: Nunito, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #8d8d9d;
+  }
+  .currencyButton {
+    width: 260px; height: 56px;
+    border: 2px #878fb8 solid;
+    border-radius: 5px;
+  }
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
+</style>
+
+<div class="container-fluid pl-2 pr-0">
+  <!-- Header -->
+  <div class="row" style="height: 72px;">
+    <div class="d-flex justify-content-around mh-100">
+      <!-- Menu -->
+      <div class="d-flex">
+        <a href="/" style="margin-right: 7%" class="d-flex justify-content-center align-items-center">
+          <svg width="87" height="16" viewBox="0 0 87 16" xmlns="http://www.w3.org/2000/svg"><path d="M5.894 12.958c.542 0 1.015-.148 1.4-.444a1.86 1.86 0 0 0 .71-1.176h3.39c-.128 1.393-.72 2.519-1.755 3.378C8.634 15.576 7.382 16 5.874 16c-1.695 0-3.104-.523-4.208-1.58C.562 13.383 0 12.03 0 10.36c0-1.639.552-2.982 1.666-4.02 1.123-1.066 2.523-1.6 4.208-1.6 1.479 0 2.73.435 3.765 1.314 1.035.86 1.617 1.976 1.755 3.348h-3.39a1.86 1.86 0 0 0-.71-1.175c-.385-.296-.848-.444-1.4-.444-.74 0-1.33.237-1.784.71-.453.475-.68 1.097-.68 1.867s.227 1.393.68 1.877c.444.484 1.045.721 1.784.721ZM20.452 4.81v3.417c-1.607.06-2.849.514-3.696 1.353v6.173h-3.608V4.988h3.608v1.155c1.025-.889 2.257-1.333 3.696-1.333ZM32.614 10.143c0 .573-.02 1.008-.069 1.284h-7.648c.335 1.156 1.143 1.729 2.415 1.729.749 0 1.3-.257 1.636-.78h3.568a4.364 4.364 0 0 1-1.823 2.646c-.957.652-2.09.978-3.42.978-1.745 0-3.165-.523-4.259-1.58-1.074-1.037-1.616-2.39-1.616-4.06 0-1.639.522-2.992 1.577-4.039 1.074-1.047 2.464-1.58 4.17-1.58 1.566 0 2.877.503 3.922 1.51 1.035.998 1.547 2.292 1.547 3.892Zm-5.49-2.627c-1.192 0-1.941.603-2.237 1.798h4.366c-.197-1.195-.906-1.798-2.128-1.798ZM41.15 4.652c1.36 0 2.464.454 3.302 1.353.838.889 1.262 2.084 1.262 3.595v6.153h-3.588v-5.57c0-.741-.177-1.304-.523-1.69-.344-.384-.827-.572-1.448-.572-.68 0-1.33.356-1.952 1.067v6.775h-3.607V0h3.607v5.709c.917-.711 1.892-1.057 2.947-1.057ZM59.404 4.988v10.765h-3.588v-.602c-.857.543-1.843.82-2.947.82-1.478 0-2.73-.544-3.765-1.62-1.045-1.097-1.577-2.43-1.577-4 0-1.57.523-2.904 1.577-4 1.035-1.077 2.287-1.62 3.765-1.62 1.104 0 2.09.276 2.947.82v-.573h3.588v.01Zm-5.805 8.04c.867 0 1.606-.337 2.217-.998V8.672c-.601-.662-1.34-.998-2.217-.998-.72 0-1.331.257-1.814.78-.483.514-.73 1.156-.73 1.907 0 .75.247 1.382.73 1.896s1.094.77 1.814.77ZM68.403 4.652c1.36 0 2.464.454 3.302 1.353.838.889 1.261 2.084 1.261 3.595v6.153H69.38v-5.57c0-.741-.178-1.304-.523-1.69-.345-.384-.828-.572-1.449-.572-.68 0-1.33.356-1.951 1.067v6.775h-3.608V4.998h3.608v.71c.916-.71 1.902-1.056 2.947-1.056ZM86.544 4.924v10.765h-3.588v-.603c-.858.544-1.843.82-2.947.82-1.479 0-2.73-.543-3.765-1.62-1.045-1.096-1.577-2.43-1.577-4 0-1.57.522-2.903 1.577-4 1.035-1.076 2.286-1.62 3.765-1.62 1.104 0 2.09.277 2.947.82v-.572h3.588v.01Zm-5.806 8.039c.868 0 1.607-.336 2.218-.997V8.607c-.601-.661-1.34-.997-2.218-.997-.72 0-1.33.257-1.813.78-.483.514-.73 1.156-.73 1.906 0 .751.247 1.383.73 1.897.483.513 1.084.77 1.813.77Z" fill="#4B22F4"></path></svg>
+        </a>
+        <div id="menu" class="d-flex justify-content-center align-items-center">
+          <button type="button" class="btn d-flex align-items-center">
+            Cursos
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+          </button>
+          <button type="button" class="btn d-flex align-items-center">
+            Recursos
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+          </button>
+          <button type="button" class="btn d-flex align-items-center">
+            Membresías
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#FFB200" style="margin-left: 2px"><path d="M21.4707 12.3109C21.3782 12.1134 21.3782 11.8868 21.4707 11.6892L22.3285 9.85808C22.8061 8.8385 22.4277 7.62328 21.467 7.09139L19.7416 6.13608C19.5554 6.03305 19.4278 5.84968 19.3914 5.63316L19.0539 3.62557C18.866 2.50779 17.8751 1.75667 16.7985 1.91562L14.8645 2.20109C14.6557 2.23184 14.4493 2.16181 14.2979 2.00895L12.894 0.591834C12.1124 -0.197255 10.8878 -0.197302 10.1062 0.591834L8.70226 2.00909C8.55079 2.162 8.34437 2.23189 8.13567 2.20123L6.20166 1.91576C5.12466 1.75672 4.13414 2.50793 3.94623 3.62571L3.60878 5.63321C3.57235 5.84977 3.44473 6.0331 3.25862 6.13618L1.53318 7.09148C0.572487 7.62332 0.194067 8.83865 0.671673 9.85822L1.52945 11.6893C1.62199 11.8869 1.62199 12.1135 1.52945 12.311L0.671628 14.1421C0.194022 15.1617 0.572441 16.3769 1.53314 16.9088L3.25857 17.8641C3.44473 17.9672 3.57235 18.1505 3.60878 18.3671L3.94623 20.3747C4.1173 21.3922 4.95347 22.1058 5.91447 22.1057C6.00912 22.1057 6.10517 22.0988 6.2017 22.0846L8.13571 21.7991C8.34428 21.7682 8.55083 21.8384 8.70231 21.9912L10.1062 23.4083C10.4971 23.8029 10.9985 24.0002 11.5001 24.0001C12.0015 24.0001 12.5033 23.8028 12.894 23.4083L14.2979 21.9912C14.4494 21.8384 14.6558 21.7685 14.8645 21.7991L16.7985 22.0846C17.8756 22.2436 18.866 21.4924 19.0539 20.3746L19.3914 18.3671C19.4278 18.1505 19.5555 17.9672 19.7416 17.8641L21.467 16.9088C22.4277 16.377 22.8061 15.1617 22.3285 14.1421L21.4707 12.3109ZM8.84696 5.77112C10.188 5.77112 11.279 6.90956 11.279 8.30887C11.279 9.70817 10.188 10.8466 8.84696 10.8466C7.50596 10.8466 6.41495 9.70817 6.41495 8.30887C6.41495 6.90956 7.50596 5.77112 8.84696 5.77112ZM7.59167 17.0571C7.46216 17.1923 7.2924 17.2599 7.12269 17.2599C6.95297 17.2599 6.78317 17.1923 6.6537 17.0571C6.39469 16.7869 6.39469 16.3486 6.6537 16.0784L15.4084 6.94299C15.6674 6.67271 16.0874 6.67271 16.3464 6.94299C16.6055 7.21326 16.6055 7.6515 16.3464 7.92178L7.59167 17.0571ZM14.1531 18.2291C12.8121 18.2291 11.7211 17.0907 11.7211 15.6914C11.7211 14.2921 12.8121 13.1536 14.1531 13.1536C15.4941 13.1536 16.5851 14.2921 16.5851 15.6914C16.5851 17.0907 15.4941 18.2291 14.1531 18.2291Z"></path><path d="M14.1531 14.5377C13.5435 14.5377 13.0476 15.0552 13.0476 15.6912C13.0476 16.3273 13.5435 16.8447 14.1531 16.8447C14.7626 16.8447 15.2585 16.3273 15.2585 15.6912C15.2585 15.0552 14.7626 14.5377 14.1531 14.5377Z"></path><path d="M8.84701 7.15527C8.23747 7.15527 7.74158 7.67272 7.74158 8.30877C7.74158 8.94481 8.23747 9.46231 8.84701 9.46231C9.45655 9.46231 9.95249 8.94486 9.95249 8.30877C9.95244 7.67277 9.45655 7.15527 8.84701 7.15527Z"></path></svg>
+          </button>
+          <button type="button" class="btn d-flex" style="width: max-content">
+            Para Empresas
+          </button>
+        </div>
+      </div>
+      <!-- Search and Login -->
+      <div class="d-flex justify-content-center align-items-center">
+        <!-- Search Bar -->
+        <div class="input-group d-flex justify-content-center align-items-center">
+          <input id="searchBar" type="text" class="form-control" placeholder="¿Qué quieres aprender hoy?">
+          <div class="input-group-prepend" style="height: 40px;">
+            <button id="searchIcon" type="button" class="btn d-flex justify-content-center align-items-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M5 11c0-3.309 2.691-6 6-6s6 2.691 6 6-2.691 6-6 6-6-2.691-6-6Zm15.707 8.293-3.395-3.396A7.952 7.952 0 0 0 19 11c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8a7.952 7.952 0 0 0 4.897-1.688l3.396 3.395a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414Z"></path></svg>
+            </button>
+          </div>
+        </div>
+        <!-- Shopping Cart -->
+        <div id="verticalBar" class="d-flex justify-content-center align-items-center"></div>
+        <button id="shoppingCart" type="button" class="btn justify-content-center align-items-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path id="cartFiller" fill="#fff" d="M21.083 6.948A1.986 1.986 0 0 0 19.382 6h-12.8l-.617-2.263A1 1 0 0 0 5 3H3a1 1 0 1 0 0 2h1.236l2.799 10.263A1 1 0 0 0 8 16h9c.379 0 .725-.214.895-.553l3.276-6.553a1.988 1.988 0 0 0-.088-1.946ZM7.5 18a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8.5 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"></path>
+            <path d="M16.382 14H8.764L7.127 8h12.255l-3 6Zm4.701-7.052A1.986 1.986 0 0 0 19.382 6h-12.8l-.617-2.263A1 1 0 0 0 5 3H3a1 1 0 1 0 0 2h1.236l2.799 10.263A1 1 0 0 0 8 16h9c.379 0 .725-.214.895-.553l3.276-6.553a1.986 1.986 0 0 0-.088-1.946ZM7.5 18a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8.5 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"></path>
+          </svg>
+        </button>
+        <!-- Log in and Sign in -->
+        <div class="d-flex justify-content-center align-items-center">
+          <button id="login" type="button" class="btn py-1">Iniciar sesión</button>
+          <button id="signIn" type="button" class="btn py-1">Registrarse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main -->
+  <div class="row">
+    <!-- Courses route -->
+    <div class="row align-items-center" style="padding-left: 10%; height: 85px;">
+      <div class="d-flex align-items-center" style="height: fit-content">
+        <button type="button" class="btn p-0 d-flex align-items-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4B22F4"><path d="M8 0H0v8h8v8H0v8h8v-8h8v8h8V0h-8v8H8V0Z" fill="#4B22F4"></path></svg>
+        </button>
+        <!-- Main route -->
+        <div class="d-flex align-items-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4B22F4" class="mx-2"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.30689 3.27917C7.705 2.89637 8.33804 2.90879 8.72083 3.30689L17.4145 12.3483L8.69253 20.7214C8.29412 21.1039 7.66109 21.0909 7.27861 20.6925C6.89614 20.2941 6.90906 19.6611 7.30747 19.2786L14.5855 12.2917L7.27917 4.69311C6.89637 4.295 6.90879 3.66196 7.30689 3.27917Z"></path></svg>
+          <a [routerLink]="['/cursos-online']" class="links"
+             [ngStyle]="{'color': (selected == courses[0])? '#4b22f4' : '#878fb8'}"
+          >Cursos online</a>
+        </div>
+        <!-- Is any route selected -->
+        <div *ngIf="selected != courses[0]" class="d-flex align-items-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4B22F4" class="mx-2"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.30689 3.27917C7.705 2.89637 8.33804 2.90879 8.72083 3.30689L17.4145 12.3483L8.69253 20.7214C8.29412 21.1039 7.66109 21.0909 7.27861 20.6925C6.89614 20.2941 6.90906 19.6611 7.30747 19.2786L14.5855 12.2917L7.27917 4.69311C6.89637 4.295 6.90879 3.66196 7.30689 3.27917Z"></path></svg>
+          <a [routerLink]="[selected.route]" class="links"
+             style="color: #4b22f4;"
+          >{{selected.title}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row px-0">
+      <!-- Left bar -->
+      <div class="col-3" style="padding-left: 10%">
+        <!-- Courses links -->
+        <div class="d-flex flex-column">
+          <a class="links route" *ngFor="let type of courses; let i = index;"
+             [routerLink]="[type.route]" (click)="toggleClickedRoutes(type.title)"
+             [ngClass]="{'accessed': type.clicked, 'route': !type.clicked, 'mb-2': i < courses.length - 1}"
+          >{{type.title}}</a>
+        </div>
+        <div class="d-flex justify-content-center align-items-center horizontalBar"></div>
+
+        <!-- Offers -->
+        <div class="d-flex flex-column">
+          <a class="links mb-2">
+            <span class="offer" style="margin-bottom: 16px">Arma tu pack de cursos</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <path d="m8.593.967 5.333 2.667a1.333 1.333 0 0 1 .74 1.193v6.354a1.334 1.334 0 0 1-.74 1.193l-5.333 2.667a1.335 1.335 0 0 1-1.193 0l-5.334-2.667a1.333 1.333 0 0 1-.733-1.2V4.827a1.333 1.333 0 0 1 .74-1.193L7.406.967a1.333 1.333 0 0 1 1.187 0v0Z" stroke="var(--color-primary-main, #4B22F4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M1.547 4.107 8 7.334l6.454-3.227M8 15.174v-7.84M4.667 2.334l6.667 3.333" stroke="var(--color-primary-main, #4B22F4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+          <a class="links">
+            <span class="offer">Hazte Premium</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4b22f4"><path d="M11.9995 16.05C12.1585 16.05 12.3175 16.088 12.4625 16.163L16.2315 18.133L15.5145 13.976C15.4575 13.65 15.5665 13.318 15.8045 13.087L18.8405 10.151L14.6375 9.539C14.3125 9.492 14.0315 9.289 13.8855 8.995L11.9995 5.201L10.1135 8.995C9.96755 9.289 9.68655 9.492 9.36155 9.539L5.15855 10.151L8.19455 13.087C8.43255 13.318 8.54155 13.65 8.48455 13.976L7.76755 18.133L11.5365 16.163C11.6815 16.088 11.8405 16.05 11.9995 16.05ZM17.5615 20.955C17.4025 20.955 17.2435 20.918 17.0985 20.842L11.9995 18.178L6.90055 20.842C6.56255 21.018 6.15455 20.987 5.84955 20.763C5.54155 20.539 5.38855 20.16 5.45255 19.785L6.42455 14.157L2.30455 10.172C2.02955 9.907 1.93155 9.509 2.04855 9.146C2.16455 8.783 2.47855 8.519 2.85555 8.464L8.55655 7.636L11.1035 2.51C11.4415 1.83 12.5575 1.83 12.8955 2.51L15.4425 7.636L21.1435 8.464C21.5205 8.519 21.8345 8.783 21.9505 9.146C22.0675 9.509 21.9695 9.907 21.6945 10.172L17.5745 14.157L18.5465 19.785C18.6105 20.16 18.4575 20.539 18.1495 20.763C17.9765 20.891 17.7695 20.955 17.5615 20.955Z"></path></svg>
+          </a>
+        </div>
+
+        <!-- Filters -->
+        <div class="sticky-top">
+          <div class="d-flex justify-content-center align-items-center horizontalBar"></div>
+          <div id="filters" class="nav flex-column">
+            <p>FILTRAR RESULTADOS</p>
+            <!-- Categories -->
+            <div class="w-100">
+              <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showCategories = !showCategories;">
+                Categorías
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showCategories)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+              </button>
+              <div id="categories" *ngIf="showCategories" class="overflow-scroll">
+                <div *ngFor="let category of categories" class="d-flex py-0 my-4 align-items-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 11H13V5C13 4.447 12.552 4 12 4C11.448 4 11 4.447 11 5V11H5C4.448 11 4 11.447 4 12C4 12.553 4.448 13 5 13H11V19C11 19.553 11.448 20 12 20C12.552 20 13 19.553 13 19V13H19C19.552 13 20 12.553 20 12C20 11.447 19.552 11 19 11Z"></path></svg>
+                  <span class="">{{category}}</span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center horizontalBar w-100"></div>
+            </div>
+
+            <!-- Levels -->
+            <div class="w-100">
+              <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showLevels = !showLevels;">
+                Niveles
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showLevels)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+              </button>
+              <div class="filter" *ngIf="showLevels">
+                <label *ngFor="let level of levels" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="level + 'Check'">
+                  <input class="form-check-input py-0 my-0" type="checkbox" value="" [id]="level + 'Check'">
+                  <span>{{level}}</span>
+                </label>
+              </div>
+              <div class="d-flex justify-content-center align-items-center horizontalBar w-100"></div>
+            </div>
+
+            <!-- Software -->
+            <div class="w-100">
+              <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showSoftware = !showSoftware;">
+                Software
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showSoftware)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+              </button>
+              <div class="filter" *ngIf="showSoftware">
+                <label *ngFor="let soft of software" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="soft + 'Check'">
+                  <input class="form-check-input py-0 my-0" type="checkbox" value="" [id]="soft + 'Check'">
+                  <span>{{soft}}</span>
+                </label>
+              </div>
+              <div class="d-flex justify-content-center align-items-center horizontalBar"></div>
+            </div>
+
+            <!-- Duration -->
+            <div class="w-100">
+              <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showDurations = !showDurations;">
+                Duración
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showDurations)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+              </button>
+              <div class="filter" *ngIf="showDurations">
+                <label *ngFor="let duration of durations" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="duration + 'Check'">
+                  <input class="form-check-input py-0 my-0" type="checkbox" value="" [id]="duration + 'Check'">
+                  <span>{{duration}}</span>
+                </label>
+              </div>
+              <div class="d-flex justify-content-center align-items-center horizontalBar w-100"></div>
+            </div>
+
+            <!-- Languages -->
+            <div class="w-100">
+              <button type="button" class="btn d-flex justify-content-between p-0 w-100" (click)="showLanguages = !showLanguages;">
+                Idioma
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" [ngStyle]="turnArrow(showLanguages)"><path d="M12 16a.993.993 0 0 1-.64-.232l-6-5a1 1 0 1 1 1.28-1.536l5.37 4.476 5.363-4.315a1 1 0 0 1 1.254 1.558l-6 4.828A1 1 0 0 1 12 16Z"></path></svg>
+              </button>
+              <div class="filter" *ngIf="showLanguages">
+                <label *ngFor="let language of languages" class="d-flex py-0 my-4 align-items-center form-check-label" [for]="language + 'Check'">
+                  <input class="form-check-input py-0 my-0" type="checkbox" value="" [id]="language + 'Check'">
+                  <span>{{language}}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Courses -->
+      <div class="col-8 px-0" style="margin-left: 1%">
+        <div class="d-flex flex-column" style="width: 100%">
+          <!-- Slider -->
+          <app-slider></app-slider>
+          <!-- Sort by -->
+          <div id="title" class="mt-4 mb-2">{{selected.message}}</div>
+          <app-filter (route)="toggleClickedRoutes($event)" class="mb-2"
+                      [selectedTitle]="selected.title"
+          ></app-filter>
+          <!-- Courses Route -->
+          <router-outlet></router-outlet>
+          <!-- Nav Buttons -->
+          <div class="d-flex flex-row justify-content-end pt-5">
+            <!-- Return -->
+            <button type="button" class="btn p-0 d-flex align-items-center" id="goUp">
+              <svg class="fill-current sm:mr-8 text-secondary-main" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#0bd4c1"><path d="M18 15a.995.995 0 0 1-.64-.232l-5.372-4.476-5.362 4.315a.999.999 0 1 1-1.253-1.558l6-4.828a.998.998 0 0 1 1.267.011l6 5A1 1 0 0 1 18 15Z"></path></svg>
+              <span>Volver arriba</span>
+            </button>
+            <!-- Prev/Next -->
+            <div class="d-flex flex-row align-items-center justify-content-between navButtons">
+              <button type="button" class="btn d-flex align-items-center deactivated">
+                <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 5a1 1 0 0 0-2 0v14a1 1 0 1 0 2 0V5Zm4.135 6H20a1 1 0 0 1 0 2H9.135l3.633 4.36a1 1 0 1 1-1.536 1.28l-5-6c-.027-.032-.045-.068-.063-.104a1.092 1.092 0 0 0-.05-.091c-.017-.026-.034-.053-.046-.083a.985.985 0 0 1-.072-.358L6 12l.001-.004c0-.122.027-.243.072-.358a.467.467 0 0 1 .046-.083.901.901 0 0 0 .025-.041c.01-.016.017-.033.025-.05a.515.515 0 0 1 .063-.104l5-6a1 1 0 1 1 1.536 1.28L9.135 11Z"></path></svg>
+              </button>
+              <button type="button" class="btn d-flex align-items-center deactivated">
+                <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 11H7.135l3.633-4.36a1 1 0 1 0-1.536-1.28l-5 6c-.039.047-.059.102-.088.154-.024.042-.053.078-.071.124a.985.985 0 0 0-.072.358L4 12l.001.004c0 .122.027.243.072.358.018.046.047.082.071.124.029.052.049.107.088.154l5 6a.999.999 0 1 0 1.536-1.28L7.135 13H19a1 1 0 0 0 0-2Z"></path></svg>
+              </button>
+              <span >Página</span>
+              <span id="numPag" >1</span>
+              <span >de 59</span>
+              <button type="button" class="btn d-flex align-items-center activated ">
+                <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 13h11.865l-3.633 4.36a1 1 0 1 0 1.537 1.28l5-6c.039-.047.058-.102.087-.154.024-.042.053-.078.071-.124a.985.985 0 0 0 .072-.358L20 12l-.001-.004a.985.985 0 0 0-.072-.358c-.018-.046-.047-.082-.071-.124-.029-.052-.048-.107-.087-.154l-5-6a1.002 1.002 0 0 0-1.409-.128 1 1 0 0 0-.128 1.408L16.865 11H5a1 1 0 0 0 0 2Z"></path></svg>
+              </button>
+              <button type="button" class="btn d-flex align-items-center activated">
+                <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19a1 1 0 1 0 2 0V5a1 1 0 1 0-2 0v14Zm-4.135-6H4a1 1 0 0 1 0-2h10.865l-3.633-4.36a1 1 0 1 1 1.536-1.28l5 6c.027.032.045.068.063.104a1.103 1.103 0 0 0 .05.091c.017.026.034.053.046.083a.985.985 0 0 1 .072.358L18 12l-.001.004a.985.985 0 0 1-.072.358c-.012.03-.029.057-.046.083a.836.836 0 0 0-.025.041c-.01.016-.017.033-.026.05a.512.512 0 0 1-.062.104l-5 6a1 1 0 1 1-1.536-1.28L14.865 13Z"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<div class="container">
+  <div class="row pt-5 mb-5">
+    <div class="col-3 d-flex flex-column footer">
+      <span class="mb-3">Compañía</span>
+      <a class="pb-3">Sobre Crehana</a>
+      <a class="pb-3">¡Estamos contratando!</a>
+      <a class="pb-3">Crehana para empresas</a>
+      <a class="pb-3">Vuélvete Premium</a>
+    </div>
+    <div class="col-3 d-flex flex-column footer">
+      <span class="mb-3">Comunidad</span>
+      <a class="pb-3">Becas</a>
+      <a class="pb-3">Historias de éxito</a>
+      <a class="pb-3">Galería de proyectos</a>
+      <a class="pb-3">Recursos</a>
+      <a class="pb-3">Blog</a>
+      <a class="pb-3">Live</a>
+    </div>
+    <div class="col-3 d-flex flex-column footer">
+      <span class="mb-3">Enlaces de ayuda</span>
+      <a class="pb-3">Centro de ayuda</a>
+      <a class="pb-3">Políticas de privacidad</a>
+      <a class="pb-3">Política de cookies</a>
+      <a class="pb-3">Solicitud ARCO</a>
+      <a class="pb-3">Términos y condiciones</a>
+    </div>
+    <div class="col-3 d-flex flex-column footer">
+      <span class="mb-3">Descarga nuestra app</span>
+      <button type="button" class="btn d-flex justify-content-around align-items-center mb-2">
+        <svg class="fill-current flex-shrink-0" width="18" height="19.8" viewBox="0 0 17 18" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M.332.663A1.646 1.646 0 0 0 0 1.662v14.676c0 .344.103.668.288.938l7.986-8.33L.332.664zm8.673 7.521 2.59-2.702L2.49.225A1.64 1.64 0 0 0 1.218.06l7.787 8.123zm0 1.526-7.866 8.204a1.633 1.633 0 0 0 1.35-.139l9.172-5.295-2.656-2.77zm6.194-2.147-2.662-1.537-2.8 2.92 2.865 2.99 2.597-1.499c.52-.3.83-.837.83-1.437 0-.6-.31-1.137-.83-1.437z"></path></svg>
+        <span>Google Play</span>
+      </button>
+      <button type="button" class="btn d-flex justify-content-around align-items-center">
+        <svg class="fill-current mr-8 flex-shrink-0" width="14.625" height="18" viewBox="0 0 13 16" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M.642 6.599c-1.288 2.234-.469 5.625.955 7.68.711 1.029 1.43 1.952 2.416 1.952l.056-.002c.463-.018.798-.16 1.121-.298.363-.155.74-.315 1.328-.315.561 0 .918.155 1.265.304.34.148.692.3 1.211.29 1.11-.02 1.792-1.015 2.393-1.894a8.355 8.355 0 0 0 1.048-2.148l.005-.013a.125.125 0 0 0-.067-.153l-.009-.004c-.195-.08-1.91-.841-1.928-2.914-.017-1.685 1.286-2.577 1.548-2.74l.012-.006a.131.131 0 0 0 .055-.081.128.128 0 0 0-.02-.095c-.899-1.316-2.278-1.515-2.833-1.54a2.86 2.86 0 0 0-.247-.01c-.652 0-1.277.246-1.779.444-.346.136-.645.254-.85.254-.233 0-.534-.12-.883-.257-.465-.185-.993-.395-1.552-.395a.52.52 0 0 0-.04 0c-1.3.02-2.528.763-3.205 1.94"></path><path d="M9.2 1c-.787.032-1.731.517-2.296 1.178-.48.555-.948 1.482-.825 2.415a.127.127 0 0 0 .115.11c.052.003.107.005.16.005.77 0 1.6-.426 2.168-1.112.596-.723.898-1.653.807-2.485a.126.126 0 0 0-.13-.11"></path></svg>
+        <span>App Store</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-between pb-5">
+    <!-- Copyright -->
+    <div class="col-6 d-flex align-items-end">
+      <a href="/" style="margin-right: 32px" class="d-flex justify-content-center align-items-center">
+        <svg class="sm:mr-32 fill-current" width="130.5" height="24" viewBox="0 0 87 16" xmlns="http://www.w3.org/2000/svg" fill="#4b22f4"><path d="M5.894 12.958c.542 0 1.015-.148 1.4-.444a1.86 1.86 0 0 0 .71-1.176h3.39c-.128 1.393-.72 2.519-1.755 3.378C8.634 15.576 7.382 16 5.874 16c-1.695 0-3.104-.523-4.208-1.58C.562 13.383 0 12.03 0 10.36c0-1.639.552-2.982 1.666-4.02 1.123-1.066 2.523-1.6 4.208-1.6 1.479 0 2.73.435 3.765 1.314 1.035.86 1.617 1.976 1.755 3.348h-3.39a1.86 1.86 0 0 0-.71-1.175c-.385-.296-.848-.444-1.4-.444-.74 0-1.33.237-1.784.71-.453.475-.68 1.097-.68 1.867s.227 1.393.68 1.877c.444.484 1.045.721 1.784.721ZM20.452 4.81v3.417c-1.607.06-2.849.514-3.696 1.353v6.173h-3.608V4.988h3.608v1.155c1.025-.889 2.257-1.333 3.696-1.333ZM32.614 10.143c0 .573-.02 1.008-.069 1.284h-7.648c.335 1.156 1.143 1.729 2.415 1.729.749 0 1.3-.257 1.636-.78h3.568a4.364 4.364 0 0 1-1.823 2.646c-.957.652-2.09.978-3.42.978-1.745 0-3.165-.523-4.259-1.58-1.074-1.037-1.616-2.39-1.616-4.06 0-1.639.522-2.992 1.577-4.039 1.074-1.047 2.464-1.58 4.17-1.58 1.566 0 2.877.503 3.922 1.51 1.035.998 1.547 2.292 1.547 3.892Zm-5.49-2.627c-1.192 0-1.941.603-2.237 1.798h4.366c-.197-1.195-.906-1.798-2.128-1.798ZM41.15 4.652c1.36 0 2.464.454 3.302 1.353.838.889 1.262 2.084 1.262 3.595v6.153h-3.588v-5.57c0-.741-.177-1.304-.523-1.69-.344-.384-.827-.572-1.448-.572-.68 0-1.33.356-1.952 1.067v6.775h-3.607V0h3.607v5.709c.917-.711 1.892-1.057 2.947-1.057ZM59.404 4.988v10.765h-3.588v-.602c-.857.543-1.843.82-2.947.82-1.478 0-2.73-.544-3.765-1.62-1.045-1.097-1.577-2.43-1.577-4 0-1.57.523-2.904 1.577-4 1.035-1.077 2.287-1.62 3.765-1.62 1.104 0 2.09.276 2.947.82v-.573h3.588v.01Zm-5.805 8.04c.867 0 1.606-.337 2.217-.998V8.672c-.601-.662-1.34-.998-2.217-.998-.72 0-1.331.257-1.814.78-.483.514-.73 1.156-.73 1.907 0 .75.247 1.382.73 1.896s1.094.77 1.814.77ZM68.403 4.652c1.36 0 2.464.454 3.302 1.353.838.889 1.261 2.084 1.261 3.595v6.153H69.38v-5.57c0-.741-.178-1.304-.523-1.69-.345-.384-.828-.572-1.449-.572-.68 0-1.33.356-1.951 1.067v6.775h-3.608V4.998h3.608v.71c.916-.71 1.902-1.056 2.947-1.056ZM86.544 4.924v10.765h-3.588v-.603c-.858.544-1.843.82-2.947.82-1.479 0-2.73-.543-3.765-1.62-1.045-1.096-1.577-2.43-1.577-4 0-1.57.522-2.903 1.577-4 1.035-1.076 2.286-1.62 3.765-1.62 1.104 0 2.09.277 2.947.82v-.572h3.588v.01Zm-5.806 8.039c.868 0 1.607-.336 2.218-.997V8.607c-.601-.661-1.34-.997-2.218-.997-.72 0-1.33.257-1.813.78-.483.514-.73 1.156-.73 1.906 0 .751.247 1.383.73 1.897.483.513 1.084.77 1.813.77Z"></path></svg>
+      </a>
+      <span id="copyright">Copyright © Crehana 2022 - Todos los derechos reservados</span>
+    </div>
+    <!-- Social media -->
+    <div class="col-6 d-flex justify-content-end">
+      <a class="d-flex align-items-center px-3">
+        <svg class=" fill-current" xmlns="http://www.w3.org/2000/svg" width="7.875" height="18" viewBox="0 0 14 32" fill="#8d8d9d"><path d="M14.418 10.361h-4.91V7.04c0-1.248.801-1.539 1.365-1.539h3.465V.018L9.565-.001c-5.298 0-6.503 4.089-6.503 6.708v3.655H0v5.65h3.063V32h6.445V16.012h4.347z"></path></svg>
+      </a>
+      <a class="d-flex align-items-center px-3">
+        <svg class=" fill-current" xmlns="http://www.w3.org/2000/svg" width="22.5" height="18" viewBox="0 0 40 32" fill="#8d8d9d"><path d="M39.536 3.787a15.828 15.828 0 0 1-4.581 1.265A8.316 8.316 0 0 0 38.428.647a17.09 17.09 0 0 1-5.03 1.886C31.81.965 29.705-.023 27.369-.023a8.107 8.107 0 0 0-7.886 9.996C12.72 9.575 6.778 6.377 2.784 1.517c-.722 1.124-1.13 2.526-1.13 4.023a8.062 8.062 0 0 0 3.579 6.705 7.813 7.813 0 0 1-3.685-1.013c.04.055.04.088.04.123a8.096 8.096 0 0 0 6.455 7.912c-.587.189-1.322.293-2.081.293a8.25 8.25 0 0 1-1.583-.153c1.126 3.247 4.1 5.554 7.621 5.619a16.172 16.172 0 0 1-10.038 3.459h-.03c-.68 0-1.352-.041-2.012-.121a23.214 23.214 0 0 0 12.487 3.637h.028c14.919 0 23.077-12.31 23.077-22.986 0-.35-.007-.699-.023-1.045a16.578 16.578 0 0 0 4.01-4.125z"></path></svg>
+      </a>
+      <a class="d-flex align-items-center px-3">
+        <svg class=" fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 32 32" fill="#8d8d9d"><path d="M15.836 7.678c-4.493 0-8.147 3.694-8.147 8.233s3.655 8.234 8.147 8.234 8.148-3.694 8.148-8.234-3.655-8.233-8.148-8.233zm0 13.52c-2.885 0-5.232-2.372-5.232-5.287s2.347-5.287 5.232-5.287 5.233 2.372 5.233 5.287-2.347 5.287-5.233 5.287zm8.455-15.59h-.019a1.87 1.87 0 1 0 1.869 1.869V7.467a1.859 1.859 0 0 0-1.85-1.859zm4.827-2.988C27.435.906 25.116.001 22.412.001H9.259C3.721.001 0 3.76 0 9.356v13.217c0 2.796.922 5.179 2.666 6.889 1.693 1.661 3.998 2.539 6.666 2.539h13.006c2.719 0 5.044-.876 6.723-2.533 1.708-1.684 2.61-4.044 2.61-6.823V9.355c0-2.706-.884-5.036-2.554-6.736zm-.362 20.027c0 1.967-.599 3.598-1.732 4.715-1.123 1.109-2.744 1.695-4.685 1.695H9.333c-1.894 0-3.497-.59-4.636-1.707-1.165-1.142-1.781-2.795-1.781-4.776V9.357c0-1.954.59-3.579 1.707-4.702C5.735 3.538 7.338 2.947 9.26 2.947h13.152c1.91 0 3.513.604 4.637 1.749 1.117 1.137 1.707 2.749 1.707 4.661v13.29z"></path></svg>
+      </a>
+      <a class="d-flex align-items-center px-3">
+        <svg class=" fill-current" xmlns="http://www.w3.org/2000/svg" width="16.875" height="18" viewBox="0 0 30 32" fill="#8d8d9d"><path d="M15.858 14.434v-.05l-.03.05h.03zM27.31.001H2.179C.976.001 0 1.028 0 2.294v27.412C0 30.972.976 32 2.179 32h25.13c1.204 0 2.18-1.028 2.18-2.294V2.294c0-1.267-.976-2.293-2.18-2.293zM8.939 26.787H4.485V12.338h4.454v14.449zM6.712 10.366h-.03c-1.494 0-2.461-1.11-2.461-2.497 0-1.417.997-2.496 2.52-2.496s2.462 1.079 2.491 2.496c0 1.387-.967 2.497-2.52 2.497zm18.287 16.421h-4.453v-7.731c0-1.942-.644-3.266-2.256-3.266-1.23 0-1.963.893-2.286 1.756-.118.309-.146.739-.146 1.172v8.069h-4.454s.058-13.093 0-14.449h4.454v2.046c.592-.984 1.651-2.385 4.015-2.385 2.93 0 5.127 2.065 5.127 6.504v8.285z"></path></svg>
+      </a>
+      <a class="d-flex align-items-center px-3">
+        <svg class=" fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 32 32" fill="#8d8d9d"><path d="M26.065 15.24H5.824c-3.217 0-5.826 2.679-5.826 5.98v4.802c0 3.3 2.608 5.977 5.826 5.977h20.241c3.217 0 5.826-2.677 5.826-5.977V21.22c.001-3.3-2.609-5.98-5.826-5.98zm-15.989 3.74H8.195v9.591H6.377V18.98H4.496v-1.633h5.58v1.633zm5.317 9.592H13.78v-.907a3.47 3.47 0 0 1-.914.755c-.285.17-.608.268-.953.274-.376 0-.654-.122-.844-.37-.187-.248-.283-.614-.283-1.11v-6.923h1.613v6.353a.709.709 0 0 0 .102.426c.07.079.176.131.293.131l.039-.002a.91.91 0 0 0 .45-.175 2.2 2.2 0 0 0 .495-.44l.003-6.293h1.613v8.281zm5.853-1.709q0 .878-.38 1.349c-.251.312-.619.467-1.096.467h-.04c-.292 0-.569-.067-.816-.186a2.076 2.076 0 0 1-.675-.551l-.003.629h-1.631V17.347h1.631v3.616c.193-.229.422-.42.678-.568.227-.129.484-.202.757-.204.511 0 .901.175 1.169.527q.406.529.405 1.549v4.595zm5.595-2.232h-3.086v1.56c0 .436.052.738.158.908s.289.252.547.252c.268 0 .454-.072.561-.215.105-.143.161-.457.161-.945v-.377h1.66v.425c0 .849-.201 1.488-.609 1.92q-.602.641-1.81.64-1.085 0-1.707-.681c-.413-.452-.624-1.08-.624-1.878v-3.72c0-.715.229-1.304.687-1.756s1.042-.676 1.766-.676q1.108 0 1.704.627c.396.42.594 1.02.594 1.805v2.112zm-2.366-3.096c-.258 0-.441.075-.553.228-.114.146-.167.395-.167.743v.837h1.426v-.837c0-.347-.058-.596-.17-.743-.109-.153-.291-.228-.536-.228zm-5.563-.027h-.002a.769.769 0 0 0-.345.081 1.24 1.24 0 0 0-.328.25l-.001 5.16c.107.118.234.217.375.291a.923.923 0 0 0 .397.093.515.515 0 0 0 .435-.177c.092-.118.14-.305.14-.571v-4.276c0-.282-.055-.493-.169-.637a.612.612 0 0 0-.467-.215l-.038.001zM8.475 12.364h2.045v-5.13L12.9-.002h-2.078L9.556 4.941h-.129L8.098-.002H6.039l2.436 7.467v4.898zm7.195.231q1.238 0 1.946-.666c.468-.447.704-1.056.704-1.836V5.381l.001-.071c0-.647-.276-1.229-.717-1.635q-.723-.662-1.851-.662c-.825 0-1.483.209-1.972.627s-.733.979-.733 1.688v4.728c0 .774.239 1.389.714 1.85q.715.686 1.908.688zm-.754-7.336V5.24c0-.184.079-.35.206-.465a.791.791 0 0 1 .543-.183l.041-.001c.204 0 .392.069.542.185.134.111.22.279.22.468V10.229a.76.76 0 0 1-.219.576.803.803 0 0 1-.544.212l-.044-.001a.717.717 0 0 1-.552-.207.81.81 0 0 1-.195-.528l.002-.054V5.259zm6.144 7.238c.389-.01.75-.117 1.064-.297a3.885 3.885 0 0 0 1.031-.841l.004 1.005h1.817V3.242h-1.817v6.925a2.57 2.57 0 0 1-.549.483c-.152.11-.325.179-.514.198-.017.002-.032.002-.047.002a.43.43 0 0 1-.326-.148.744.744 0 0 1-.118-.47V3.24h-1.813v7.624q0 .816.318 1.219c.215.273.529.412.95.412z"></path></svg>
+      </a>
+      <button type="button" class="btn currencyButton mx-3 d-flex justify-content-around align-items-center">
+        <span>Otros $ ( USD )</span>
+        <svg class="xpmbsd-0 huatGl fill-current text-primary-main" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4b22f4"><path d="M10 19a1 1 0 0 1-.768-1.64l4.476-5.371-4.316-5.362a1 1 0 0 1 1.56-1.254l4.828 6a1 1 0 0 1-.011 1.267l-5 6a1 1 0 0 1-.77.36Z"></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

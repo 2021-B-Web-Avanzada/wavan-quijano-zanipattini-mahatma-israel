@@ -1,0 +1,100 @@
+<style>
+  .btn-primary {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    background-color: #4b22f4;
+    border-color: #4b22f4;
+    border-radius: 5px;
+    height: 48px;
+    padding: 0 40px;
+    width: fit-content;
+  }
+  #banner {
+    background-position: center;
+    width: 100%;
+    height: 280px;
+    border-radius: 5px
+  }
+  h1 {
+    font-family: "Mitr", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+  }
+  span {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+  }
+  #info {
+    position: relative;
+    top: 30%;
+    left: 0;
+    margin-left: 10%;
+  }
+  #controls {
+    height: 100%;
+    padding-bottom: 15px;
+  }
+  .option {
+    width: 8px; height: 8px;
+    border: 1px #e8eaf0 solid;
+    margin: 0 4px;
+    cursor: pointer;
+  }
+  .selected {
+    border: 1px #0bd4c1 solid;
+    background-color: #0bd4c1;
+  }
+  .arrow {
+    cursor: pointer;
+  }
+  .arrow svg {
+    fill: #c3cbd6;
+  }
+  .available svg{
+    fill: #49f2d2;
+  }
+  .available:hover svg {
+    fill: #0bd4c1;
+  }
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
+</style>
+
+<div id="banner" [ngStyle]="{
+  'background-image': 'url(' + assets[currentAssetIndex]['imgUrl'] + ')'
+}" class="d-flex flex-column">
+  <!-- Info -->
+  <div id="info" class="d-flex flex-column justify-content-start">
+    <h1 class="mb-2">{{assets[currentAssetIndex]['title']}}</h1>
+    <span class="mb-2">{{assets[currentAssetIndex]['description']}}</span>
+    <button class="btn btn-primary">Ver detalles</button>
+  </div>
+  <!-- Controls -->
+  <div id="controls" class="d-flex flex-row justify-content-center align-items-end">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="arrow"
+           [ngClass]="{'available': currentAssetIndex > 0}"
+           (click)="changeImage(currentAssetIndex - 1)"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.829 19a.998.998 0 0 1-.78-.373l-4.828-6a1 1 0 0 1 .01-1.267l5-6a1 1 0 1 1 1.536 1.28l-4.474 5.371 4.315 5.362a1 1 0 0 1-.78 1.627Z"></path></svg>
+      </div>
+      <div class="option rounded-circle"
+           *ngFor="let asset of assets; let i = index"
+           [ngClass]="{'selected': i == currentAssetIndex}"
+           (click)="changeImage(i)"
+      ></div>
+      <div class="arrow"
+           [ngClass]="{'available': currentAssetIndex < assets.length - 1}"
+           (click)="changeImage(currentAssetIndex + 1)"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 19a1 1 0 0 1-.768-1.64l4.476-5.371-4.316-5.362a1 1 0 0 1 1.56-1.254l4.828 6a1 1 0 0 1-.011 1.267l-5 6a1 1 0 0 1-.77.36Z"></path></svg>
+      </div>
+    </div>
+  </div>
+</div>

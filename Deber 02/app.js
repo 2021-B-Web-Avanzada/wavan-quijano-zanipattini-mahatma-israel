@@ -14,7 +14,7 @@ app.listen(PORT, () => {
 });
 
 app.get("/", (req, res) => {
-    res.send("API\nMahatma Quijano");
+    res.send("API Mahatma Quijano");
 });
 
 /* Routes */
@@ -23,6 +23,7 @@ const conjuntosRoute = require("./routes/conjuntos");
 app.use("/conjunto", conjuntosRoute);
 // Casas
 const casasRoute = require("./routes/casas");
+const {handle} = require("express/lib/router");
 app.use("/conjunto", casasRoute);
 
 // Database connection

@@ -1,1 +1,39 @@
 <p>ruta-login works!</p>
+
+<div *ngFor="let usuario of arregloUsuarios; let i = index">
+  <app-banner-imagenes
+    [color]="usuario.color"
+    [url]="usuario.link"
+    [urlImagen]="usuario.linkImagen"
+  ></app-banner-imagenes>
+</div>
+
+
+<!-- Directiva: NG FOR -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Indice</th>
+      <th>ID</th>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of arregloUsuarios; let i = index">
+      <td>{{i}}</td>
+      <td>{{usuario.id}}</td>
+      <td>{{usuario.nombre}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Directiva: NG IF -> IF -->
+<button (click)="cambiarOcultarBanner()">
+  {{ (mostrarSegundoBanner) ? 'Ocultar' : 'Mostrar' }}
+</button>
+<app-banner-imagenes *ngIf="mostrarSegundoBanner">
+</app-banner-imagenes>
+
+
+
+
