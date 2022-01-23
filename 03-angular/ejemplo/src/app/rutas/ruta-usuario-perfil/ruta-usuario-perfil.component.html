@@ -1,1 +1,39 @@
-<p>ruta-usuario-perfil works!</p>
+<div *ngIf="usuarioActual">
+  <p>{{usuarioActual.name}}</p>
+</div>
+
+<div class="container" *ngIf="formGroup">
+  <form [formGroup]="formGroup">
+    <div class="mb-3">
+      <!-- Email -->
+      <label for="email" class="form-label">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese email">
+      <div *ngIf="formGroup.get('email')">
+        <div class="alert alert-warning" role="alert"
+             *ngIf="
+             formGroup.get('email')?.invalid &&
+             formGroup.get('email')?.touched &&
+             formGroup.get('email')?.dirty
+        ">
+          <span *ngIf="formGroup.get('email')?.hasError('required')">
+            Correo requerido
+          </span>
+          <span *ngIf="formGroup.get('email')?.hasError('minlength')">
+            Mínimo de caracteres: 3
+          </span>
+        </div>
+      </div>
+      <button class="btn btn-primary" [disabled]="formGroup.invalid">Guardar</button>
+      <!-- Phone -->
+      <br>
+      <label for="phone" class="form-label">Phone</label>
+      <input id="phone" type="text" class="form-control" aria-describedby="phoneHelp" placeholder="Ingrese phone">
+      <!-- Username -->
+      <label for="username" class="form-label">Username</label>
+      <input id="username" type="text" class="form-control" aria-describedby="usernameHelp" placeholder="Ingrese username">
+      <!-- Website -->
+      <label for="website" class="form-label">Website</label>
+      <input id="website" type="text" class="form-control" aria-describedby="websiteHelp" placeholder="Ingrese website">
+    </div>
+  </form>
+</div>
