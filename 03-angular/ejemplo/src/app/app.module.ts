@@ -18,6 +18,14 @@ import {BannerImagenesModule} from "./componentes/banner-imagenes/banner-imagene
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usuario-perfil.component';
+import {InputSwitchModule} from "primeng/inputswitch";
+import {KnobModule} from "primeng/knob";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import { ModalEjemploComponent } from './componentes/modal-ejemplo/modal-ejemplo.component';
+import {SocketIoModule} from "ngx-socket-io";
 
 @NgModule({
   declarations: [
@@ -29,7 +37,8 @@ import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usu
     RutaUsuarioComponent,
     RutaPostComponent,
     RutaAppComponent,
-    RutaUsuarioPerfilComponent
+    RutaUsuarioPerfilComponent,
+    ModalEjemploComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +47,16 @@ import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usu
     HttpClientModule,
     FormsModule,  // Template Driven Forms
     ReactiveFormsModule,
+    InputSwitchModule,
+    KnobModule,
+    SplitButtonModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
+    SocketIoModule.forRoot({
+      url: 'ws://localhost:8080',
+      options: {}
+    })
   ],
   // Servicios
   providers: [
@@ -48,3 +67,5 @@ import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usu
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

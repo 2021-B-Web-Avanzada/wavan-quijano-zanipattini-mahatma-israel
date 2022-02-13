@@ -67,6 +67,7 @@ export class RutaUsuarioComponent implements OnInit {
     this.router.navigate(ruta);
   }
 
+
 }
 
 

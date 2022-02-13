@@ -16,6 +16,10 @@ const routes: Routes = [
     path: "login",
     component: RutaLoginComponent
   },
+  /*{
+    path: "salaId/sala",
+    component: RutaSalaComponent
+  },*/
   {
     path: "forbidden",
     component: RutaForbiddenComponent

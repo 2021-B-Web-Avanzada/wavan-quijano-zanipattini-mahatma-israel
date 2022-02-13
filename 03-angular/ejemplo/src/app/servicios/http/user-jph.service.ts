@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {UserJphInterface} from "./interface/user-jph.interface";
 import {environment} from "../../../environments/environment";
+import {UserJphCreateInterface} from "./user-jph-create-interface";
 
 @Injectable({
   providedIn: 'any'
@@ -46,4 +47,20 @@ export class UserJphService {
         )
       );
   }
+
+  actualizarPorId(
+    idUsuario: number, datosActualizar: UserJphCreateInterface
+  ): Observable<UserJphInterface> {
+    const url = environment.urlJPC + '/users/' + idUsuario;
+    return this.httpClient
+      .put(url, datosActualizar)  // O puede ser patch()
+      .pipe(map(
+        (resultadoEnData) => resultadoEnData as UserJphInterface
+      ))
+  }
+
 }
+
+
+
+
