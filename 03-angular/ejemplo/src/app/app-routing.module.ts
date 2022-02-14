@@ -10,16 +10,17 @@ import {RutaAppComponent} from "./rutas/ruta-app/ruta-app.component";
 import {EstaLogeadoGuard} from "./esta-logeado.guard";
 import {EsAdministradorGuard} from "./es-administrador.guard";
 import {RutaUsuarioPerfilComponent} from "./rutas/ruta-usuario-perfil/ruta-usuario-perfil.component";
+import {RutaSalaComponent} from "./rutas/ruta-sala/ruta-sala.component";
 
 const routes: Routes = [
   {
     path: "login",
     component: RutaLoginComponent
   },
-  /*{
+  {
     path: "salaId/sala",
     component: RutaSalaComponent
-  },*/
+  },
   {
     path: "forbidden",
     component: RutaForbiddenComponent

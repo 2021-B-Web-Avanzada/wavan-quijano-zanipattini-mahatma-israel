@@ -22,10 +22,10 @@ export class AppComponent implements OnInit {
     this.websocketsService.escucharEventoHola()
       .subscribe({
         next: (data) => {
-          console.log({data});
+          console.log(data);
         },
         error: (error) => {
-          console.error({error});
+          console.error(error);
         }
       });
   }

@@ -7,15 +7,13 @@ import { Server, Socket } from "socket.io"
         cors: {
             origin: '*',
         },
-        // namespace: 'events'
     }
 )
 
 export class EventosGateway {
     @SubscribeMessage('Hola')
-
     devolverHola(
-        @MessageBody() message,
+        @MessageBody() message: { nombre: string },
         @ConnectedSocket() socket: Socket
     ) {
         socket.broadcast
@@ -28,16 +26,17 @@ export class EventosGateway {
         return 'ok'
     }
 
+    @SubscribeMessage('UnirseSala')
     unirseSala(
-        @MessageBody() message: {salaId: string, nombre: string},
+        @MessageBody() message: { salaId: string, nombre: string },
         @ConnectedSocket() socket: Socket
     ) {
-        socket.join(message.salaId);
+        socket.join(message.salaId);    // El Socket se una a una Sala
         const mensajeAEnviar: any = {
             mensaje: 'Bienvenido ' + message.nombre
         };
         socket.broadcast
-            .to(message.salaId)
+            .to(message.salaId)     // Se indica que salas escucharán el evento
             .emit(
                 'escucharEventoUnirseSala',
                 mensajeAEnviar
@@ -45,19 +44,20 @@ export class EventosGateway {
         return 'ok';
     }
 
+    @SubscribeMessage('EmitirMensaje')
     enviarMensaje(
-        @MessageBody() message: {salaId: string, nombre: string, mensaje: string},
+        @MessageBody() message: { salaId: string, nombre: string, mensaje: string },
         @ConnectedSocket() socket: Socket
     ) {
-        const nuevoMensaje = {
+        const nuevoMensaje: any = {
             nombre: message.nombre,
             mensaje: message.mensaje,
             salaId: message.salaId
-        } as any;
+        };
         socket.broadcast
-            .to(message.salaId)
+            .to(message.salaId)     // Se indica que salas escucharán el evento
             .emit(
-                'escucharEventoMensajeSala',
+                'escucharEventoEmitirMensaje',
                 nuevoMensaje
             );
         return 'ok';
