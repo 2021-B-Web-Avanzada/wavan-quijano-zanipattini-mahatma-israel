@@ -1,0 +1,105 @@
+<!-- Breadcrumb -->
+<nav class="container pt-4" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/conjunto']">Visualizar conjuntos</a></li>
+    <li class="breadcrumb-item active">Actualizar datos del conjunto</li>
+  </ol>
+</nav>
+<!-- Content -->
+<div class="d-flex flex-row justify-content-center px-5 py-3">
+  <h3>Actualizar el conjunto</h3>
+</div>
+<div class="container d-flex flex-row justify-content-center" *ngIf="formUpdateConjunto">
+  <form action="" [formGroup]="formUpdateConjunto" class="col-6">
+    <!-- Nombre -->
+    <label for="nombre" class="form-label pt-2">Nombre:</label>
+    <input id="nombre" formControlName="nombre" type="text" class="form-control" placeholder="Ingrese el nombre del conjunto">
+    <div *ngIf="formUpdateConjunto.get('nombre');">
+      <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('nombre')?.invalid &&
+                                                           formUpdateConjunto.get('nombre')?.touched &&
+                                                           formUpdateConjunto.get('nombre')?.dirty">
+        <span *ngIf="formUpdateConjunto.get('nombre')?.hasError('required')">
+          Nombre requerido
+        </span>
+        <span *ngIf="formUpdateConjunto.get('nombre')?.hasError('minlength')">
+          El nombre debe contener al menos {{this.validationOptions.nombreMinLength}} caracteres
+        </span>
+        <span *ngIf="formUpdateConjunto.get('nombre')?.hasError('maxlength')">
+          El nombre debe contener un máximo de {{this.validationOptions.nombreMaxLength}} caracteres
+        </span>
+      </div>
+    </div>
+    <!-- Dirección -->
+    <label for="direccion" class="form-label pt-2">Dirección:</label>
+    <textarea id="direccion" formControlName="direccion" class="form-control" placeholder="Ingrese la dirección del conjunto" rows="2"></textarea>
+    <div *ngIf="formUpdateConjunto.get('direccion');">
+      <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('direccion')?.invalid &&
+                                                           formUpdateConjunto.get('direccion')?.touched &&
+                                                           formUpdateConjunto.get('direccion')?.dirty">
+        <span *ngIf="formUpdateConjunto.get('direccion')?.hasError('required')">
+          Dirección requerida
+        </span>
+        <span *ngIf="formUpdateConjunto.get('direccion')?.hasError('minlength')">
+          La direccion debe contener al menos {{this.validationOptions.direccionMinLength}} caracteres
+        </span>
+        <span *ngIf="formUpdateConjunto.get('direccion')?.hasError('maxlength')">
+          La dirección debe contener un máximo de {{this.validationOptions.direccionMaxLength}} caracteres
+        </span>
+      </div>
+    </div>
+    <!-- Área -->
+    <label for="area" class="form-label pt-2">Área (m²):</label>
+    <input id="area" formControlName="area" type="number" class="form-control" placeholder="Ingrese el área en m²">
+    <div *ngIf="formUpdateConjunto.get('area');">
+      <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('area')?.invalid &&
+                                                           formUpdateConjunto.get('area')?.touched &&
+                                                           formUpdateConjunto.get('area')?.dirty">
+        <span *ngIf="formUpdateConjunto.get('area')?.hasError('required')">
+          Área requerida
+        </span>
+        <span *ngIf="formUpdateConjunto.get('area')?.hasError('min')">
+          El área mínima es de {{this.validationOptions.areaMin}} m²
+        </span>
+        <span *ngIf="formUpdateConjunto.get('area')?.hasError('max')">
+          El área máxima es de {{this.validationOptions.areaMax}} m²
+        </span>
+      </div>
+    </div>
+    <!-- Fecha de apertura -->
+    <label for="fechaApertura" class="form-label pt-2">Fecha de apertura:</label>
+    <input id="fechaApertura" formControlName="fechaApertura" type="date" class="form-control" [max]="today">
+    <div *ngIf="formUpdateConjunto.get('fechaApertura');">
+      <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('fechaApertura')?.touched &&
+                                                           !formUpdateConjunto.get('fechaApertura')?.dirty">
+        <span>Fecha requerida</span>
+      </div>
+    </div>
+    <!-- Estrellas -->
+    <label for="estrellas" class="form-label pt-2">Estrellas:</label>
+    <input id="estrellas" formControlName="estrellas" type="text" class="form-control" placeholder="Ingrese el número de estrellas del conjunto">
+    <div *ngIf="formUpdateConjunto.get('estrellas');">
+      <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('estrellas')?.invalid &&
+                                                           formUpdateConjunto.get('estrellas')?.touched &&
+                                                           formUpdateConjunto.get('estrellas')?.dirty">
+        <span *ngIf="formUpdateConjunto.get('estrellas')?.hasError('required')">
+          Calificación requerida
+        </span>
+        <span *ngIf="formUpdateConjunto.get('estrellas')?.hasError('min')">
+          La calificación mínima es {{this.validationOptions.estrellasMin}}
+        </span>
+        <span *ngIf="formUpdateConjunto.get('estrellas')?.hasError('max')">
+          La calificación máxima es {{this.validationOptions.estrellasMax}}
+        </span>
+      </div>
+    </div>
+    <!-- Crear conjunto -->
+    <div class="d-flex flex-row justify-content-center pt-4">
+      <button class="btn btn-primary" [disabled]="formUpdateConjunto.invalid ||
+                                                  !formUpdateConjunto.get('fechaApertura')?.touched ||
+                                                  !formUpdateConjunto.get('fechaApertura')?.dirty"
+              (click)="updateConjunto()">
+        Actualizar datos
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,106 @@
+<!-- Breadcrumb -->
+<nav class="container pt-4" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/conjunto']">Visualizar conjuntos</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/conjunto', conjuntoID, 'casa']">Visualizar casas del conjunto</a></li>
+    <li class="breadcrumb-item active">Crear nueva casa</li>
+  </ol>
+</nav>
+<!-- Content -->
+<div class="d-flex flex-row justify-content-center px-5 py-3">
+  <h3>Crear nueva casa</h3>
+</div>
+<div class="container d-flex flex-row justify-content-center" *ngIf="formCasa">
+  <form [formGroup]="formCasa" class="col-6">
+    <!-- Nombre -->
+    <label for="nombre" class="form-label pt-2">Nombre:</label>
+    <input id="nombre" formControlName="nombre" type="text" class="form-control" placeholder="Ingrese el nombre de la casa">
+    <div *ngIf="formCasa.get('nombre');">
+      <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('nombre')?.invalid &&
+                                                           formCasa.get('nombre')?.touched &&
+                                                           formCasa.get('nombre')?.dirty">
+        <span *ngIf="formCasa.get('nombre')?.hasError('required')">
+          Nombre requerido
+        </span>
+        <span *ngIf="formCasa.get('nombre')?.hasError('minlength')">
+          El nombre debe contener al menos {{this.validationOptions.nombreMinLength}} caracteres
+        </span>
+        <span *ngIf="formCasa.get('nombre')?.hasError('maxlength')">
+          El nombre debe contener un máximo de {{this.validationOptions.nombreMaxLength}} caracteres
+        </span>
+      </div>
+    </div>
+    <!-- Ubicación -->
+    <label for="ubicacion" class="form-label pt-2">Ubicación:</label>
+    <textarea id="ubicacion" formControlName="ubicacion" class="form-control" placeholder="Ingrese la ubicación de la casa" rows="2"></textarea>
+    <div *ngIf="formCasa.get('ubicacion');">
+      <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('ubicacion')?.invalid &&
+                                                           formCasa.get('ubicacion')?.touched &&
+                                                           formCasa.get('ubicacion')?.dirty">
+        <span *ngIf="formCasa.get('ubicacion')?.hasError('required')">
+          Ubicación requerida
+        </span>
+        <span *ngIf="formCasa.get('ubicacion')?.hasError('minlength')">
+          La ubicación debe contener al menos {{this.validationOptions.ubicacionMinLength}} caracteres
+        </span>
+        <span *ngIf="formCasa.get('ubicacion')?.hasError('maxlength')">
+          La ubicación debe contener un máximo de {{this.validationOptions.ubicacionMaxLength}} caracteres
+        </span>
+      </div>
+    </div>
+    <!-- Área -->
+    <label for="area" class="form-label pt-2">Área (m²):</label>
+    <input id="area" formControlName="area" type="number" class="form-control" placeholder="Ingrese el área en m²">
+    <div *ngIf="formCasa.get('area');">
+      <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('area')?.invalid &&
+                                                           formCasa.get('area')?.touched &&
+                                                           formCasa.get('area')?.dirty">
+        <span *ngIf="formCasa.get('area')?.hasError('required')">
+          Área requerida
+        </span>
+        <span *ngIf="formCasa.get('area')?.hasError('min')">
+          El área mínima es de {{this.validationOptions.areaMin}} m²
+        </span>
+        <span *ngIf="formCasa.get('area')?.hasError('max')">
+          El área máxima es de {{this.validationOptions.areaMax}} m²
+        </span>
+      </div>
+    </div>
+    <!-- Fecha de apertura -->
+    <label for="fechaApertura" class="form-label pt-2">Fecha de apertura:</label>
+    <input id="fechaApertura" formControlName="fechaApertura" type="date" class="form-control" [max]="today">
+    <div *ngIf="formCasa.get('fechaApertura');">
+      <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('fechaApertura')?.touched &&
+                                                           !formCasa.get('fechaApertura')?.dirty">
+        <span>Fecha requerida</span>
+      </div>
+    </div>
+    <!-- Precio -->
+    <label for="precio" class="form-label pt-2">Precio:</label>
+    <input id="precio" formControlName="precio" type="number" class="form-control" placeholder="Ingrese el precio de la casa">
+    <div *ngIf="formCasa.get('precio');">
+      <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('precio')?.invalid &&
+                                                           formCasa.get('precio')?.touched &&
+                                                           formCasa.get('precio')?.dirty">
+        <span *ngIf="formCasa.get('precio')?.hasError('required')">
+          Precio requerido
+        </span>
+        <span *ngIf="formCasa.get('precio')?.hasError('min')">
+          El precio mínimo es de {{this.validationOptions.precioMin | currency }}
+        </span>
+        <span *ngIf="formCasa.get('precio')?.hasError('max')">
+          El precio máximo es de {{this.validationOptions.precioMax | currency }}
+        </span>
+      </div>
+    </div>
+    <!-- Crear conjunto -->
+    <div class="d-flex flex-row justify-content-center pt-4">
+      <button class="btn btn-primary" [disabled]="formCasa.invalid ||
+                                                  !formCasa.get('fechaApertura')?.touched ||
+                                                  !formCasa.get('fechaApertura')?.dirty"
+              (click)="createCasa()">
+        Crear casa
+      </button>
+    </div>
+  </form>
+</div>
