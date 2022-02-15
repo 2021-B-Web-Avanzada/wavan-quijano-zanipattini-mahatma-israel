@@ -4,8 +4,6 @@ const Conjunto = require("../models/Conjunto");
 
 // Create document CONJUNTO
 router.post("/", async (req, res) => {
-    // TODO: Reemplazar con un req.body ------ new Conjunto(req.body)
-    // TODO: Lo mismo seria en vez del set{} en el Update
     const conjunto = new Conjunto({
         nombre: req.body.nombre,
         direccion: req.body.direccion,
