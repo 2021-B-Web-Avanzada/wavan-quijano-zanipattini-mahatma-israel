@@ -12,7 +12,7 @@
 <div class="container d-flex flex-row justify-content-center" *ngIf="formUpdateConjunto">
   <form action="" [formGroup]="formUpdateConjunto" class="col-6">
     <!-- Nombre -->
-    <label for="nombre" class="form-label pt-2">Nombre:</label>
+    <label for="nombre" class="form-label pt-3">Nombre:</label>
     <input id="nombre" formControlName="nombre" type="text" class="form-control" placeholder="Ingrese el nombre del conjunto">
     <div *ngIf="formUpdateConjunto.get('nombre');">
       <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('nombre')?.invalid &&
@@ -30,7 +30,7 @@
       </div>
     </div>
     <!-- Dirección -->
-    <label for="direccion" class="form-label pt-2">Dirección:</label>
+    <label for="direccion" class="form-label pt-3">Dirección:</label>
     <textarea id="direccion" formControlName="direccion" class="form-control" placeholder="Ingrese la dirección del conjunto" rows="2"></textarea>
     <div *ngIf="formUpdateConjunto.get('direccion');">
       <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('direccion')?.invalid &&
@@ -48,7 +48,7 @@
       </div>
     </div>
     <!-- Área -->
-    <label for="area" class="form-label pt-2">Área (m²):</label>
+    <label for="area" class="form-label pt-3">Área (m²):</label>
     <input id="area" formControlName="area" type="number" class="form-control" placeholder="Ingrese el área en m²">
     <div *ngIf="formUpdateConjunto.get('area');">
       <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('area')?.invalid &&
@@ -66,7 +66,7 @@
       </div>
     </div>
     <!-- Fecha de apertura -->
-    <label for="fechaApertura" class="form-label pt-2">Fecha de apertura:</label>
+    <label for="fechaApertura" class="form-label pt-3">Fecha de apertura:</label>
     <input id="fechaApertura" formControlName="fechaApertura" type="date" class="form-control" [max]="today">
     <div *ngIf="formUpdateConjunto.get('fechaApertura');">
       <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('fechaApertura')?.touched &&
@@ -75,8 +75,12 @@
       </div>
     </div>
     <!-- Estrellas -->
-    <label for="estrellas" class="form-label pt-2">Estrellas:</label>
-    <input id="estrellas" formControlName="estrellas" type="text" class="form-control" placeholder="Ingrese el número de estrellas del conjunto">
+    <div class="d-flex flex-row pt-3">
+      <label for="estrellas" class="form-label">Calificación:</label>
+      <input id="estrellas" formControlName="estrellas" type="range" class="form-range mx-3" min="1" max="5">
+      <span id="score">{{score}}</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Star_icon_stylized.svg/1077px-Star_icon_stylized.svg.png" alt="" width="20" height="20" class="d-inline-block align-text-top mx-2">
+    </div>
     <div *ngIf="formUpdateConjunto.get('estrellas');">
       <div class="alert alert-warning" role="alert" *ngIf="formUpdateConjunto.get('estrellas')?.invalid &&
                                                            formUpdateConjunto.get('estrellas')?.touched &&

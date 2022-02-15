@@ -13,7 +13,7 @@
 <div class="container d-flex flex-row justify-content-center" *ngIf="formCasa">
   <form [formGroup]="formCasa" class="col-6">
     <!-- Nombre -->
-    <label for="nombre" class="form-label pt-2">Nombre:</label>
+    <label for="nombre" class="form-label pt-3">Nombre:</label>
     <input id="nombre" formControlName="nombre" type="text" class="form-control" placeholder="Ingrese el nombre de la casa">
     <div *ngIf="formCasa.get('nombre');">
       <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('nombre')?.invalid &&
@@ -31,7 +31,7 @@
       </div>
     </div>
     <!-- Ubicación -->
-    <label for="ubicacion" class="form-label pt-2">Ubicación:</label>
+    <label for="ubicacion" class="form-label pt-3">Ubicación:</label>
     <textarea id="ubicacion" formControlName="ubicacion" class="form-control" placeholder="Ingrese la ubicación de la casa" rows="2"></textarea>
     <div *ngIf="formCasa.get('ubicacion');">
       <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('ubicacion')?.invalid &&
@@ -49,7 +49,7 @@
       </div>
     </div>
     <!-- Área -->
-    <label for="area" class="form-label pt-2">Área (m²):</label>
+    <label for="area" class="form-label pt-3">Área (m²):</label>
     <input id="area" formControlName="area" type="number" class="form-control" placeholder="Ingrese el área en m²">
     <div *ngIf="formCasa.get('area');">
       <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('area')?.invalid &&
@@ -67,7 +67,7 @@
       </div>
     </div>
     <!-- Fecha de apertura -->
-    <label for="fechaApertura" class="form-label pt-2">Fecha de apertura:</label>
+    <label for="fechaApertura" class="form-label pt-3">Fecha de apertura:</label>
     <input id="fechaApertura" formControlName="fechaApertura" type="date" class="form-control" [max]="today">
     <div *ngIf="formCasa.get('fechaApertura');">
       <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('fechaApertura')?.touched &&
@@ -76,7 +76,7 @@
       </div>
     </div>
     <!-- Precio -->
-    <label for="precio" class="form-label pt-2">Precio:</label>
+    <label for="precio" class="form-label pt-3">Precio ($):</label>
     <input id="precio" formControlName="precio" type="number" class="form-control" placeholder="Ingrese el precio de la casa">
     <div *ngIf="formCasa.get('precio');">
       <div class="alert alert-warning" role="alert" *ngIf="formCasa.get('precio')?.invalid &&

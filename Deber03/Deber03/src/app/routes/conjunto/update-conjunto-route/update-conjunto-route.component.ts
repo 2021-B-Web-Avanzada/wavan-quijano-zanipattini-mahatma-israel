@@ -44,6 +44,8 @@ export class UpdateConjuntoRouteComponent implements OnInit {
         next: (data) => {
           this.conjunto = data;
           this.setUpForm();
+          this.score = this.conjunto!.estrellas;
+          this.listenChanges();
         }
       });
   }
@@ -58,6 +60,8 @@ export class UpdateConjuntoRouteComponent implements OnInit {
     estrellasMin: 1,
     estrellasMax: 5,
   }
+
+  score = this.validationOptions.estrellasMin;
 
   setUpForm() {
     this.formUpdateConjunto = this.formBuilder.group({
@@ -122,5 +126,14 @@ export class UpdateConjuntoRouteComponent implements OnInit {
           }
         });
     }
+  }
+
+  listenChanges() {
+    const changes = this.formUpdateConjunto?.get('estrellas')?.valueChanges;
+    changes!.subscribe({
+      next: (newScore) => {
+        this.score = newScore;
+      }
+    });
   }
 }

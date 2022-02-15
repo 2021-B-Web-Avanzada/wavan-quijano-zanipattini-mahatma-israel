@@ -27,6 +27,7 @@ export class CreateConjuntoRouteComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpForm();
+    this.listenChanges();
   }
 
   validationOptions = {
@@ -39,6 +40,8 @@ export class CreateConjuntoRouteComponent implements OnInit {
     estrellasMin: 1,
     estrellasMax: 5,
   }
+
+  score = this.validationOptions.estrellasMin;
 
   setUpForm() {
     this.formConjunto = this.formBuilder.group({
@@ -72,7 +75,7 @@ export class CreateConjuntoRouteComponent implements OnInit {
         Validators.required,
       ]),
       estrellas: new FormControl({
-        value: '',
+        value: this.score,
         disabled: false,
       }, [
         Validators.required,
@@ -105,6 +108,15 @@ export class CreateConjuntoRouteComponent implements OnInit {
           }
         });
     }
+  }
+
+  listenChanges() {
+    const changes = this.formConjunto?.get('estrellas')?.valueChanges;
+    changes!.subscribe({
+      next: (newScore) => {
+        this.score = newScore;
+      }
+    });
   }
 
 }
