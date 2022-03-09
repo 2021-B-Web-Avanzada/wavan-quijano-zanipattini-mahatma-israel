@@ -72,18 +72,21 @@
     <span class="m-2">
       Jugadores:
     </span>
-    <div *ngFor="let player of players;" class="border my-2">
+    <div *ngFor="let player of players;" class="border my-2" [class.btn-primary]="player.turn">
       <span *ngIf="player.turn">Turno de:</span>
       <span>{{player.nickname}} - {{player.points}}</span>
     </div>
   </div>
   <!-- Game Board -->
   <div class="col-10 border">
-    <div class="row g-3">
-      <app-card *ngFor="let card of cards; let i = index" class="col"
+<!--    <div class="row row-cols-md-6 g-3">-->
+<!--     class="col"-->
+    <div class="d-flex flex-wrap justify-content-evenly">
+      <app-card *ngFor="let card of cards; let i = index" class="m-0 m-xl-2 m-xxl-4"
                 [cardInfo]="card"
                 [cardIndex]="i"
       ></app-card>
+<!--    </div>-->
     </div>
   </div>
 </div>

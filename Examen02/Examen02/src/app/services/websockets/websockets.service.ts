@@ -19,14 +19,6 @@ export class WebsocketsService {
     });
   }
 
-  increasePointsEvent(nickname: string, roomID: string, points: number) {
-    const resp = this.socket.emit('IncreasePoints', {
-      nickname: nickname,
-      roomID: roomID,
-      points: points,
-    });
-  }
-
   leaveRoomEvent(nickname: string, roomID: string) {
     const resp = this.socket.emit('LeaveRoom', {
       nickname: nickname,
@@ -85,6 +77,10 @@ export class WebsocketsService {
 
   listenTurnChanges() {
     return this.socket.fromEvent('TurnChanged');
+  }
+
+  listenGameOverEvent() {
+    return this.socket.fromEvent('GameOver');
   }
 
 }

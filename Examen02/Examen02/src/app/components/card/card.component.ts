@@ -25,7 +25,7 @@ export class CardComponent implements OnInit {
 
   makeMove() {
     // If it's player's turn
-    if (this.dataService.currentPlayer?.turn) {
+    if (this.dataService.currentPlayer?.turn && !this.dataService.waitFlag) {
       // Reverse a card just if it's upside down
       if (this.cardInfo?.upsideDown) {
         this.websocketsService.makeMoveEvent(this.dataService.roomID!, this.dataService.currentPlayer?.nickname!, this.cardIndex!);

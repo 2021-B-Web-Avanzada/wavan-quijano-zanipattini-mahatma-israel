@@ -60,6 +60,8 @@ export class GameComponent implements OnInit, OnDestroy {
       this.listenForPointsChanges();
       this.listenForPlayersLeft();
       this.listenForTurnChange();
+      // GameOver
+      this.listenGameOver();
     }
   }
 
@@ -109,14 +111,11 @@ export class GameComponent implements OnInit, OnDestroy {
           // Update players list
           this.updatePlayersList(data.players);
           // Get turn
-          console.log('Players:', this.players);
-          console.log('Yo (antes):', this.dataService.currentPlayer);
           this.players.forEach((player) => {
             if (player.nickname == this.dataService.currentPlayer?.nickname) {
               this.dataService.currentPlayer!.turn = player.turn;
             }
           });
-          console.log('Yo (despues):', this.dataService.currentPlayer);
           // Message
           console.log(data.message);
           couldNotJoin.unsubscribe();
@@ -135,7 +134,17 @@ export class GameComponent implements OnInit, OnDestroy {
     const cardsBoardHasChanged = this.websocketsService.listenCardsBoardChanges()
       .subscribe({
         next: (data: any) => {
-          this.cards = data.cardsBoard;
+          // If the cards are reversing
+          if (data.message == 'NoMatches') {
+            this.dataService.waitFlag = true;
+            setTimeout(() => {
+              this.cards = data.cardsBoard;
+              this.dataService.waitFlag = false;
+            }, 2000);
+          // Another type of update
+          } else {
+            this.cards = data.cardsBoard;
+          }
         }
       });
     this.subscriptions.push(cardsBoardHasChanged);
@@ -172,7 +181,6 @@ export class GameComponent implements OnInit, OnDestroy {
     const turnChanges = this.websocketsService.listenTurnChanges()
       .subscribe({
         next: (data: any) => {
-          console.log('Es turno de', data.nextPlayerNickname);
           // Change turn
           this.dataService.currentPlayer!.turn = this.dataService.currentPlayer?.nickname == data.nextPlayerNickname;
           // Update turns
@@ -182,11 +190,22 @@ export class GameComponent implements OnInit, OnDestroy {
     this.subscriptions.push(turnChanges);
   }
 
+  listenGameOver() {
+    const gameOver = this.websocketsService.listenGameOverEvent()
+      .subscribe({
+        next: (data: any) => {
+          console.log('WINNER:', data.winner.nickname, 'POINTS:', data.winner.points);
+          // TODO: Finish game
+          // Unsubscribe
+          this.subscriptions.push(gameOver);
+          this.unsubscribe();
+        }
+      });
+  }
+
   updatePlayersList(players: PlayerInterface[]) {
     this.players = players;
   }
-
-
 
   ngOnDestroy() {
     console.log('On Destroy! canAccess=', this.canAccess);

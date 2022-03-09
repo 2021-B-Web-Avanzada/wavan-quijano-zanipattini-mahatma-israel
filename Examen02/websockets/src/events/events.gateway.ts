@@ -27,10 +27,9 @@ export class EventsGateway {
         const nickname = message.nickname;
         // Do not allow to join if the nickname exists
         if (this.playerAlreadyExists(nickname, roomID)) {
-            socket.emit(
-                'CouldNotJoin',
-                { message: 'El nickname ' + nickname + ' ya existe en la sala ' + roomID }
-            );
+            socket.emit('CouldNotJoin',{
+                message: 'El nickname ' + nickname + ' ya existe en la sala ' + roomID
+            });
         // Join room
         } else {
             socket.join(roomID);
@@ -38,15 +37,10 @@ export class EventsGateway {
             const newPlayer = this.addNewPlayer(nickname, roomID, socket);
             const roomPlayers = this.getRoomPlayers(roomID);
             // Respond
-            this.server
-                .to(roomID)
-                .emit(
-                    'NewPlayerHasJoined',
-                    {
-                        message: 'Bienvenido a la sala ' + newPlayer.nickname,
-                        players: roomPlayers,
-                    }
-                );
+            this.server.to(roomID).emit('NewPlayerHasJoined',{
+                message: 'Bienvenido a la sala ' + newPlayer.nickname,
+                players: roomPlayers,
+            });
         }
         return 'ok';
     }
@@ -107,15 +101,8 @@ export class EventsGateway {
         const roomID = message.roomID;
         const player = message.player;
         const cardIndex = message.cardIndex;
-
-        // TODO: Check player's turn? (ESTE EVENTO SOLO PASA SI ES EL TURNO, ASI QUE ES OPCIONAL)
-
         // Reverse card
         this.reverseCard(roomID, cardIndex);
-
-        // TODO: Check if there's a match
-        // filter(!outOfGame && card.frontSide == cardBoard[cardIndex].frontSide)
-
         socket.to(roomID).emit('CardsBoardChanges', {
             cardsBoard: this.getRoomBoard(roomID),
         });
@@ -130,11 +117,18 @@ export class EventsGateway {
             // Increase points
             const controller = new BoardController();
             this.increasePoints(roomID, currentPlayer, controller.MATCH_POINTS);
-            // Current player has another turn
-            this.server.to(roomID).emit('TurnChanged', {
-                nextPlayerNickname: currentPlayer.nickname,
-                players: this.getRoomPlayers(roomID),
-            });
+            // Check if the Game is Over
+            if (this.checkGameOver(roomID)) {
+                this.server.to(roomID).emit('GameOver', {
+                    winner: currentPlayer,
+                });
+            } else {
+                // Current player has another turn
+                this.server.to(roomID).emit('TurnChanged', {
+                    nextPlayerNickname: currentPlayer.nickname,
+                    players: this.getRoomPlayers(roomID),
+                });
+            }
         // There is no matches
         } else {
             const turnIndex = this.setNextTurnIndex(roomID);
@@ -148,24 +142,11 @@ export class EventsGateway {
     }
 
     increasePoints(roomID: string, currentPlayer: PlayerInterface, points: number) {
-        // this.rooms.forEach((room) => {
-        //     if (room.roomID == roomID) {
-        //         room.players.forEach((player) => {
-        //             if (player.nickname == message.nickname) {
-        //                 player.points += message.points;
-        //             }
-        //         });
-        //     }
-        // });
+        // Increase points
         currentPlayer.points += points;
-
         const roomPlayers = this.getRoomPlayers(roomID);
         // Respond
-        this.server
-            .to(roomID)
-            .emit(
-                'PointsHaveBeenUpdated',
-                {
+        this.server.to(roomID).emit('PointsHaveBeenUpdated',{
                     message: 'Genial! ' + currentPlayer.nickname + ' has conseguido ' + points + ' puntos!',
                     players: roomPlayers,
                 }
@@ -307,6 +288,7 @@ export class EventsGateway {
                    }
                }
                room.currentTurnIndex = newTurnIndex;
+               // Set every player's turn
                room.players.forEach((player) => {
                    player.turn = player.nickname == room.players[newTurnIndex].nickname;
                });
@@ -345,7 +327,9 @@ export class EventsGateway {
                     else {
                         frontSidedCards[0].upsideDown = true;
                         frontSidedCards[1].upsideDown = true;
+                        // Reverse cards
                         this.server.to(roomID).emit('CardsBoardChanges', {
+                            message: 'NoMatches',
                             cardsBoard: this.getRoomBoard(roomID),
                         });
                     }
@@ -353,5 +337,18 @@ export class EventsGateway {
             }
         });
         return theresMatch;
+    }
+
+    checkGameOver(roomID: string) {
+        let gameOver: boolean = false;
+        this.rooms.forEach((room) => {
+            if (room.roomID == roomID) {
+                const cardsLeft = room.cardsBoard.filter((card) => {
+                    return !card.outOfGame;
+                });
+                gameOver = cardsLeft.length == 0;
+            }
+        });
+        return gameOver;
     }
 }
