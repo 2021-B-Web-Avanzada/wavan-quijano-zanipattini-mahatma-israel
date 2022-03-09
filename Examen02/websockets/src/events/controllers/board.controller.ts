@@ -18,7 +18,7 @@ export class BoardController {
     ];
 
     static MATCH_POINTS = 10;
-    static  MAX_PLAYERS = 8;
+    static  MAX_PLAYERS = 5;
 
     getRandomArray(): string[] {
         const cards = [

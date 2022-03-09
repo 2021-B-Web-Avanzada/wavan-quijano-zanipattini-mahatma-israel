@@ -52,7 +52,7 @@
           </div>
         </div>
         <!-- Join Room -->
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-2">
           <!-- TODO: Si la sala existe se llama "Unirse a la sala" si no "Crear sala" -->
           <button type="submit" class="btn btn-primary mb-3" [disabled]="formGroup.invalid"
                   (click)="joinGame()"
@@ -69,7 +69,8 @@
     <h1 class="mx-0 mx-xl-5 my-5">Instrucciones:</h1>
     <ol class="mx-0 mx-xl-5">
       <li class="my-3">Ingresa un nickname con el que tus amigos puedan identificarte</li>
-      <li class="my-3">Ingresa el ID de una sala. Si la sala no existe se creará!</li>
+      <li class="my-3">Ingresa el ID de la sala. Si la sala no existe se creará!</li>
+      <li class="my-3">Pueden participar hasta 5 jugadores a la vez</li>
       <li class="my-3">Acumula puntos encontrando los pares de cartas que sean idénticas</li>
       <li class="my-3">Si encuentras un par idéntico tendrás un turno extra!</li>
     </ol>

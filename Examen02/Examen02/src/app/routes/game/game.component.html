@@ -87,10 +87,10 @@
     </h1>
     <!-- Players -->
     <ul class="list-group">
-      <li *ngFor="let player of players;" class="list-group-item" [class.currentTurn]="player.turn">
+      <li *ngFor="let player of players;" class="list-group-item m-1" [class.currentTurn]="player.turn">
         <div class="my-2">
           <div id="turnLabel" *ngIf="player.turn">Turno de:</div>
-          <div class="d-flex flex-row justify-content-between playerInfo">
+          <div class="d-flex flex-wrap justify-content-between playerInfo">
             <div>{{player.nickname}}</div>
             <div>{{player.points}} pts</div>
           </div>
@@ -109,19 +109,19 @@
   </div>
 </div>
 
-<!-- Winners -->
+<!-- Scoreboard -->
 <div class="container-fluid d-flex flex-row px-0" *ngIf="isOver">
   <!-- Players List -->
   <div class="col-12">
-    <h1 class="mx-3 mt-5 mb-3 text-center">
-      Ganadores
+    <h1 id="scoreBoard" class="mx-3 mt-5 mb-3 text-center">
+      Marcador
     </h1>
     <!-- Players -->
     <div class="d-flex justify-content-center">
-      <ul class="col-4 list-group">
-        <li *ngFor="let player of sortedPlayers;" class="list-group-item">
+      <ul class="col-8 col-xxl-4 list-group">
+        <li *ngFor="let player of sortedPlayers;" class="list-group-item  m-1">
           <div class="my-2">
-            <div class="d-flex flex-row justify-content-between playerInfo">
+            <div class="d-flex flex-wrap justify-content-between playerInfo">
               <div>{{player.nickname}}</div>
               <div>{{player.points}} pts</div>
             </div>
