@@ -29,6 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
   roomID?: string;
   currentPlayer?: PlayerInterface;
   canAccess = false;
+  roomIsFull = false;
 
   players: PlayerInterface[] = [];
   subscriptions: Subscription[] = [];
@@ -103,7 +104,13 @@ export class GameComponent implements OnInit, OnDestroy {
         next: (data: any) => {
           this.canAccess = false;
           this.errorMessage = data.message;
-          this.prepareForm();
+          this.roomIsFull = data.roomIsFull;
+          console.log('ROOM FULL?', this.roomIsFull);
+          if (!this.roomIsFull) {
+            this.prepareForm();
+          } else {
+            this.formGroup = undefined;
+          }
         }
       });
     // New player has joined

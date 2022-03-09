@@ -25,13 +25,26 @@ export class EventsGateway {
     joinRoomEvent(@MessageBody() message, @ConnectedSocket() socket: Socket) {
         const roomID = message.roomID;
         const nickname = message.nickname;
+        let canJoin: boolean = true;
         // Do not allow to join if the nickname exists
         if (this.playerAlreadyExists(nickname, roomID)) {
-            socket.emit('CouldNotJoin',{
-                message: 'El nickname ' + nickname + ' ya existe en la sala ' + roomID
+            socket.emit('CouldNotJoin', {
+                message: 'El nickname ' + nickname + ' ya existe en la sala ' + roomID,
+                roomIsFull: false,
             });
+            canJoin = false;
+        // Do not allow to join if the room is full
+        } else if (this.getRoomPlayers(roomID) != null) {
+            if (this.getRoomPlayers(roomID).length >= BoardController.MAX_PLAYERS) {
+                socket.emit('CouldNotJoin', {
+                    message: 'La sala está llena!',
+                    roomIsFull: true,
+                });
+                canJoin = false;
+            }
+        }
         // Join room
-        } else {
+        if (canJoin) {
             socket.join(roomID);
             // Add Player
             const newPlayer = this.addNewPlayer(nickname, roomID, socket);
@@ -59,6 +72,21 @@ export class EventsGateway {
             socket.rooms.delete(message.roomID);
             // Tell that the room is gone
             this.getRoomsEvent(socket);
+        // The player was on turn
+        } else if (nickname == this.getCurrentPlayer(roomID).nickname) {
+            if (this.checkGameOver(roomID)) {
+                this.server.to(roomID).emit('GameOver', {
+                    players: this.getRoomPlayers(roomID),
+                });
+            } else {
+                const turnIndex = this.setNextTurnIndex(roomID);
+                const players = this.getRoomPlayers(roomID);
+                const nextPlayer = players[turnIndex];
+                this.server.to(roomID).emit('TurnChanged', {
+                    nextPlayerNickname: nextPlayer.nickname,
+                    players: players,
+                });
+            }
         }
         // Respond
         this.server.to(roomID).emit('PlayerHasLeft',{
@@ -121,8 +149,7 @@ export class EventsGateway {
         if (this.checkMatches(roomID)) {
             const currentPlayer = this.getCurrentPlayer(roomID);
             // Increase points
-            const controller = new BoardController();
-            this.increasePoints(roomID, currentPlayer, controller.MATCH_POINTS);
+            this.increasePoints(roomID, currentPlayer, BoardController.MATCH_POINTS);
             // Check if the Game is Over
             if (this.checkGameOver(roomID)) {
                 this.server.to(roomID).emit('GameOver', {
@@ -142,7 +169,7 @@ export class EventsGateway {
             const nextPlayer = players[turnIndex];
             this.server.to(roomID).emit('TurnChanged', {
                 nextPlayerNickname: nextPlayer.nickname,
-                players: this.getRoomPlayers(roomID),
+                players: players,
             });
         }
     }
@@ -161,13 +188,16 @@ export class EventsGateway {
 
     // Functions:
     getRoomPlayers(roomID: string) {
-        let searchedRoom: RoomInterface
+        let searchedRoom: RoomInterface = null;
         this.rooms.forEach((room) => {
             if (room.roomID == roomID) {
                 searchedRoom = room;
             }
         });
-        return searchedRoom.players;
+        if (searchedRoom != null)
+            return searchedRoom.players;
+        else
+            return null;
     }
 
     getCurrentPlayer(roomID: string) {

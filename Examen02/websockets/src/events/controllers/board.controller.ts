@@ -17,7 +17,8 @@ export class BoardController {
         'https://raw.githubusercontent.com/2021-B-Web-Avanzada/wavan-quijano-zanipattini-mahatma-israel/desarrollo/Examen02/websockets/src/events/controllers/imgs/10.png',
     ];
 
-    MATCH_POINTS = 10;
+    static MATCH_POINTS = 10;
+    static  MAX_PLAYERS = 8;
 
     getRandomArray(): string[] {
         const cards = [
