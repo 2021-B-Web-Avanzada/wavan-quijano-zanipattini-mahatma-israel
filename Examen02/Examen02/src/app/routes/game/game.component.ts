@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {WebsocketsService} from "../../services/websockets/websockets.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlayerInterface} from "../../interfaces/player.interface";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {DataService} from "../../services/data/data.service";
+import {CardInterface} from "../../interfaces/card.interface";
 
 @Component({
   selector: 'app-game',
@@ -21,27 +22,13 @@ export class GameComponent implements OnInit, OnDestroy {
     public dataService: DataService,
   ) { }
 
-  cards = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ5xrJpPA7N04dY071Jxkn7nWwagvOe07EHg&usqp=CAU',
-  ];
+  cards: CardInterface[] = [];
 
   formGroup?: FormGroup;
   errorMessage?: string;
   roomID?: string;
   currentPlayer?: PlayerInterface;
   canAccess = false;
-  MATCH_POINTS = 10;
 
   players: PlayerInterface[] = []
   subscriptions: Subscription[] = [];
@@ -54,11 +41,11 @@ export class GameComponent implements OnInit, OnDestroy {
     params.subscribe({
       next: (params) => {
         this.roomID = params['roomID'];
+        this.dataService.roomID = this.roomID;
       }
     });
     // Redirect to main page
     if (this.currentPlayer == undefined) {
-      console.log('Redirecting...', this.roomID);
       const url = ['/join'];
       this.router.navigate(url, {
         queryParams: {
@@ -72,6 +59,7 @@ export class GameComponent implements OnInit, OnDestroy {
       this.listenJoiningPlayers();
       this.listenForPointsChanges();
       this.listenForPlayersLeft();
+      this.listenForTurnChange();
     }
   }
 
@@ -94,6 +82,7 @@ export class GameComponent implements OnInit, OnDestroy {
       const currentPlayer = {
         nickname: this.formGroup?.get('nickname')!.value,
         points: 0,
+        movesLeft: 2,
       }
       this.currentPlayer = currentPlayer;
       this.dataService.currentPlayer = currentPlayer;
@@ -102,29 +91,38 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
 
-  increasePoints() {
-    this.websocketsService.increasePointsEvent(this.currentPlayer!.nickname!, this.roomID!, this.MATCH_POINTS);
-  }
-
   listenJoiningPlayers() {
+    // Could not join
     const couldNotJoin = this.websocketsService.listenCouldNotJoin()
       .subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.canAccess = false;
-          // @ts-ignore
           this.errorMessage = data.message;
           this.prepareForm();
         }
       });
+    // New player has joined
     const newPlayerHasJoined = this.websocketsService.listenNewPlayerHasJoined()
       .subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.canAccess = true;
-          // @ts-ignore
+          // Update players list
           this.updatePlayersList(data.players);
-          // @ts-ignore
+          // Get turn
+          console.log('Players:', this.players);
+          console.log('Yo (antes):', this.dataService.currentPlayer);
+          this.players.forEach((player) => {
+            if (player.nickname == this.dataService.currentPlayer?.nickname) {
+              this.dataService.currentPlayer!.turn = player.turn;
+            }
+          });
+          console.log('Yo (despues):', this.dataService.currentPlayer);
+          // Message
           console.log(data.message);
           couldNotJoin.unsubscribe();
+          // Request Cards Board
+          this.websocketsService.getCardsBoard(this.roomID!);
+          this.listenForCardsBoardChanges();
         },
         error: (error) => {
           console.error(error);
@@ -133,14 +131,21 @@ export class GameComponent implements OnInit, OnDestroy {
     this.subscriptions.push(newPlayerHasJoined);
   }
 
+  listenForCardsBoardChanges() {
+    const cardsBoardHasChanged = this.websocketsService.listenCardsBoardChanges()
+      .subscribe({
+        next: (data: any) => {
+          this.cards = data.cardsBoard;
+        }
+      });
+    this.subscriptions.push(cardsBoardHasChanged);
+  }
+
   listenForPointsChanges() {
-    // this.unsubscribe();
     const pointsHaveChanged = this.websocketsService.listenPointsHaveBeenUpdated()
       .subscribe({
-        next: (data) => {
-          // @ts-ignore
+        next: (data: any) => {
           this.updatePlayersList(data.players);
-          // @ts-ignore
           console.log(data.message);
         },
         error: (error) => {
@@ -151,11 +156,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   listenForPlayersLeft() {
-    // this.unsubscribe();
     const playerHasLeft = this.websocketsService.listenPlayerHasLeft()
       .subscribe({
-        next: (data) => {
-          // @ts-ignore
+        next: (data: any) => {
           console.log(data.message);
         },
         error: (error) => {
@@ -165,9 +168,25 @@ export class GameComponent implements OnInit, OnDestroy {
     this.subscriptions.push(playerHasLeft);
   }
 
+  listenForTurnChange() {
+    const turnChanges = this.websocketsService.listenTurnChanges()
+      .subscribe({
+        next: (data: any) => {
+          console.log('Es turno de', data.nextPlayerNickname);
+          // Change turn
+          this.dataService.currentPlayer!.turn = this.dataService.currentPlayer?.nickname == data.nextPlayerNickname;
+          // Update turns
+          this.updatePlayersList(data.players);
+        }
+      });
+    this.subscriptions.push(turnChanges);
+  }
+
   updatePlayersList(players: PlayerInterface[]) {
     this.players = players;
   }
+
+
 
   ngOnDestroy() {
     console.log('On Destroy! canAccess=', this.canAccess);

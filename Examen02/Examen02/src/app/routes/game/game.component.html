@@ -73,18 +73,19 @@
       Jugadores:
     </span>
     <div *ngFor="let player of players;" class="border my-2">
-      {{player.nickname}} - {{player.points}}
+      <span *ngIf="player.turn">Turno de:</span>
+      <span>{{player.nickname}} - {{player.points}}</span>
     </div>
   </div>
   <!-- Game Board -->
   <div class="col-10 border">
-    <div class="row row-cols-3 row-cols-md-6 g-4">
-      <app-card *ngFor="let card of cards;" class="col"
-                [frontSide]="card"
+    <div class="row g-3">
+      <app-card *ngFor="let card of cards; let i = index" class="col"
+                [cardInfo]="card"
+                [cardIndex]="i"
       ></app-card>
     </div>
   </div>
 </div>
-<button type="button" class="btn btn-warning" (click)="increasePoints()">Aumentar puntos</button>
 
 

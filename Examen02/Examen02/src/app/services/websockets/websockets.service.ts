@@ -38,6 +38,26 @@ export class WebsocketsService {
     const resp = this.socket.emit('GetRooms');
   }
 
+  getCardsBoard(roomID: string) {
+    const resp = this.socket.emit('GetCardsBoard', {
+      roomID: roomID
+    });
+  }
+
+  makeMoveEvent(roomID: string, player: string, cardIndex: number) {
+    const resp = this.socket.emit('MakeMove', {
+      roomID: roomID,
+      player: player,
+      cardIndex: cardIndex,
+    });
+  }
+
+  changeTurnEvent(roomID: string) {
+    const resp = this.socket.emit('ChangeTurn', {
+      roomID: roomID,
+    });
+  }
+
   // Listen events
   listenNewPlayerHasJoined() {
     return this.socket.fromEvent('NewPlayerHasJoined');
@@ -57,6 +77,14 @@ export class WebsocketsService {
 
   listenExistingRooms() {
     return this.socket.fromEvent('ExistingRooms');
+  }
+
+  listenCardsBoardChanges() {
+    return this.socket.fromEvent('CardsBoardChanges');
+  }
+
+  listenTurnChanges() {
+    return this.socket.fromEvent('TurnChanged');
   }
 
 }

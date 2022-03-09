@@ -84,6 +84,8 @@ export class JoinComponent implements OnInit, OnDestroy {
       this.currentPlayer = {
         nickname: nickname,
         points: 0,
+        turn: false,
+        movesLeft: 2,
       }
       // Redirect to the Room Game
       const url = ['/join', roomID];
