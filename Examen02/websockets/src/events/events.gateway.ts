@@ -126,7 +126,7 @@ export class EventsGateway {
             // Check if the Game is Over
             if (this.checkGameOver(roomID)) {
                 this.server.to(roomID).emit('GameOver', {
-                    winner: currentPlayer,
+                    players: this.getRoomPlayers(roomID),
                 });
             } else {
                 // Current player has another turn

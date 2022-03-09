@@ -30,8 +30,11 @@ export class GameComponent implements OnInit, OnDestroy {
   currentPlayer?: PlayerInterface;
   canAccess = false;
 
-  players: PlayerInterface[] = []
+  players: PlayerInterface[] = [];
   subscriptions: Subscription[] = [];
+
+  isOver = false;
+  sortedPlayers: PlayerInterface[] = [];
 
   ngOnInit(): void {
     // Get current player
@@ -194,8 +197,11 @@ export class GameComponent implements OnInit, OnDestroy {
     const gameOver = this.websocketsService.listenGameOverEvent()
       .subscribe({
         next: (data: any) => {
-          console.log('WINNER:', data.winner.nickname, 'POINTS:', data.winner.points);
-          // TODO: Finish game
+          // Finish game
+          this.isOver = true;
+          this.sortedPlayers = data.players.sort((p1: PlayerInterface, p2: PlayerInterface) => {
+            return p2.points - p1.points;
+          });
           // Unsubscribe
           this.subscriptions.push(gameOver);
           this.unsubscribe();
