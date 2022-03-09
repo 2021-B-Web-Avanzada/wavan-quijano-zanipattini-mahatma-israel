@@ -61,14 +61,9 @@ export class EventsGateway {
             this.getRoomsEvent(socket);
         }
         // Respond
-        this.server
-            .to(roomID)
-            .emit(
-                'PlayerHasLeft',
-                {
-                    message: 'El jugador ' + nickname + ' ha abandonado la sala',
-                }
-            );
+        this.server.to(roomID).emit('PlayerHasLeft',{
+            message: 'El jugador ' + nickname + ' ha abandonado la sala',
+        });
         return 'ok';
     }
 
@@ -105,6 +100,17 @@ export class EventsGateway {
         this.reverseCard(roomID, cardIndex);
         socket.to(roomID).emit('CardsBoardChanges', {
             cardsBoard: this.getRoomBoard(roomID),
+        });
+        // TODO: BORRAR !!!!!!!!!!!!!!!!!!!!!!!
+        console.log('---------------------');
+        this.rooms.forEach((room) => {
+            console.log('| RoomID:', room.roomID);
+            console.log('| Players:')
+            room.players.forEach((player) => {
+                console.log('  "->', player);
+            });
+            console.log('| ActivePlayers:', room.activePlayers);
+            console.log('| CurrentTurnIndex:', room.currentTurnIndex, '->', room.players[room.currentTurnIndex]);
         });
     }
 
@@ -301,7 +307,9 @@ export class EventsGateway {
         this.rooms.forEach((room) => {
             if (room.roomID == roomID) {
                 room.players.forEach((player) => {
-                    player.outOfGame = true;
+                    if (player.nickname == nickname) {
+                        player.outOfGame = true;
+                    }
                 });
             }
         });
