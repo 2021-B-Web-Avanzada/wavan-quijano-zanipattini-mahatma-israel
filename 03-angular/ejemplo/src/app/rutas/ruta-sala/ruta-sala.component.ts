@@ -21,6 +21,25 @@ export class RutaSalaComponent implements OnInit, OnDestroy {
   sala = '';
   arregloSubscripciones: Subscription[] = [];
 
+  mensaje = '';
+  arregloMensajes: {
+    salaId: string;
+    nombre: string;
+    mensaje: string;
+    posicion: 'izq' | 'der';
+  }[] = [];
+
+  enviarMensaje() {
+    this.arregloMensajes.push({
+      mensaje: this.mensaje,
+      salaId: this.sala,
+      nombre: this.nombre,
+      posicion: 'izq',
+    })
+    this.websocketsService.ejecutarEventoEmitirMensaje(+this.sala, this.nombre, this.mensaje);
+    this.mensaje = '';
+  }
+
   ngOnInit(): void {
     console.log('Init');
     this.activatedRoute.params
@@ -38,8 +57,14 @@ export class RutaSalaComponent implements OnInit, OnDestroy {
     this.desuscribir();
     const respEscucharEventoEmitirMensaje = this.websocketsService.escucharEventoEmitirMensaje()
       .subscribe({
-        next: (data) => {
+        next: (data: any) => {
           console.log('Se emitio un mensaje:', data);
+          this.arregloMensajes.push({
+            mensaje: data.mensaje,
+            salaId: data.salaId,
+            nombre: data.nombre,
+            posicion: data.nombre === this.nombre ? 'izq' : 'der'
+          })
         },
         error: (error) => {
           console.error(error);
