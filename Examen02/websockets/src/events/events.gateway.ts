@@ -129,17 +129,6 @@ export class EventsGateway {
         socket.to(roomID).emit('CardsBoardChanges', {
             cardsBoard: this.getRoomBoard(roomID),
         });
-        // TODO: BORRAR !!!!!!!!!!!!!!!!!!!!!!!
-        console.log('---------------------');
-        this.rooms.forEach((room) => {
-            console.log('| RoomID:', room.roomID);
-            console.log('| Players:')
-            room.players.forEach((player) => {
-                console.log('  "->', player);
-            });
-            console.log('| ActivePlayers:', room.activePlayers);
-            console.log('| CurrentTurnIndex:', room.currentTurnIndex, '->', room.players[room.currentTurnIndex]);
-        });
     }
 
     @SubscribeMessage('ChangeTurn')

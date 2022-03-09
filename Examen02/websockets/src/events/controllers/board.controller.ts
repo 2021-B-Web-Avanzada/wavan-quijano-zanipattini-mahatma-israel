@@ -24,9 +24,8 @@ export class BoardController {
         const cards = [
             ...this.frontSidesURLs,
             ...this.frontSidesURLs,
-            // TODO: Volver a poner esto
-            // ...this.frontSidesURLs,
-            // ...this.frontSidesURLs,
+            ...this.frontSidesURLs,
+            ...this.frontSidesURLs,
         ];
         // Shuffle
         let index = cards.length - 1;

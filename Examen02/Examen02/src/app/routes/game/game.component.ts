@@ -105,7 +105,6 @@ export class GameComponent implements OnInit, OnDestroy {
           this.canAccess = false;
           this.errorMessage = data.message;
           this.roomIsFull = data.roomIsFull;
-          console.log('ROOM FULL?', this.roomIsFull);
           if (!this.roomIsFull) {
             this.prepareForm();
           } else {
