@@ -7,6 +7,8 @@ import { JoinComponent } from './routes/join/join.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {SocketIoModule} from "ngx-socket-io";
 import { CardComponent } from './components/card/card.component';
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -26,6 +28,9 @@ import { CardComponent } from './components/card/card.component';
       url: 'ws://localhost:8080',
       options: {},
     }),
+    // Toasts
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

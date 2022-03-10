@@ -18,7 +18,6 @@ export class CardComponent implements OnInit {
   backSide = 'https://raw.githubusercontent.com/2021-B-Web-Avanzada/wavan-quijano-zanipattini-mahatma-israel/desarrollo/Examen02/websockets/src/events/controllers/imgs/back.png';
   @Input() cardInfo?: CardInterface;
   @Input() cardIndex?: number;
-  // @Input() turn: boolean = false;
 
   ngOnInit(): void {
   }

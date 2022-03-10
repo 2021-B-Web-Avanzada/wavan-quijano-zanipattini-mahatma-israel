@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {DataService} from "../../services/data/data.service";
 import {CardInterface} from "../../interfaces/card.interface";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-game',
@@ -20,6 +21,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private readonly websocketsService: WebsocketsService,
     private readonly formBuilder: FormBuilder,
     public dataService: DataService,
+    private toastr: ToastrService,
   ) { }
 
   cards: CardInterface[] = [];
@@ -126,7 +128,7 @@ export class GameComponent implements OnInit, OnDestroy {
             }
           });
           // Message
-          console.log(data.message);
+          this.toastr.info(data.message, "Nuevo jugador!");
           couldNotJoin.unsubscribe();
           // Request Cards Board
           this.websocketsService.getCardsBoard(this.roomID!);
@@ -164,7 +166,7 @@ export class GameComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: any) => {
           this.updatePlayersList(data.players);
-          console.log(data.message);
+          this.toastr.success(data.message, "Punto!");
         },
         error: (error) => {
           console.error(error);
@@ -177,7 +179,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const playerHasLeft = this.websocketsService.listenPlayerHasLeft()
       .subscribe({
         next: (data: any) => {
-          console.log(data.message);
+          this.toastr.info(data.message, "Hasta luego!");
         },
         error: (error) => {
           console.error(error);
@@ -220,7 +222,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('On Destroy! canAccess=', this.canAccess);
     this.unsubscribe();
     // Leave Room
     if (this.canAccess)
