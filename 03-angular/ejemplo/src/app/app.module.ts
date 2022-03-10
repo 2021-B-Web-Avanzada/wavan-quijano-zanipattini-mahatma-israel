@@ -16,8 +16,17 @@ import {EsAdministradorGuard} from "./es-administrador.guard";
 import {BannerImagenesComponent} from "./componentes/banner-imagenes/banner-imagenes/banner-imagenes.component";
 import {BannerImagenesModule} from "./componentes/banner-imagenes/banner-imagenes.module";
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usuario-perfil.component';
+import {InputSwitchModule} from "primeng/inputswitch";
+import {KnobModule} from "primeng/knob";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import { ModalEjemploComponent } from './componentes/modal-ejemplo/modal-ejemplo.component';
+import {SocketIoModule} from "ngx-socket-io";
+import { RutaSalaComponent } from './rutas/ruta-sala/ruta-sala.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +38,27 @@ import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usu
     RutaUsuarioComponent,
     RutaPostComponent,
     RutaAppComponent,
-    RutaUsuarioPerfilComponent
+    RutaUsuarioPerfilComponent,
+    ModalEjemploComponent,
+    RutaSalaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BannerImagenesModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,  // Template Driven Forms
+    ReactiveFormsModule,
+    InputSwitchModule,
+    KnobModule,
+    SplitButtonModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
+    SocketIoModule.forRoot({
+      url: 'ws://localhost:8080',
+      options: {}
+    })
   ],
   // Servicios
   providers: [
@@ -47,3 +69,5 @@ import { RutaUsuarioPerfilComponent } from './rutas/ruta-usuario-perfil/ruta-usu
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

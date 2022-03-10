@@ -1,0 +1,19 @@
+<!-- Breadcrumb -->
+<nav class="container pt-4" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/conjunto']">Visualizar conjuntos</a></li>
+    <li class="breadcrumb-item active">Visualizar casas del conjunto</li>
+  </ol>
+</nav>
+<!-- Content -->
+<div class="d-flex flex-row justify-content-between px-5 py-3">
+  <h3 *ngIf="listaCasas.length > 0">Las casas registradas son:</h3>
+  <h3 *ngIf="listaCasas.length == 0">No existen casas registradas</h3>
+  <a [routerLink]="['/conjunto', conjuntoID, 'casa', 'crearCasa']" class="btn btn-primary">Nueva casa</a>
+</div>
+<div class="d-flex flex-row flex-wrap justify-content-start">
+  <app-casa *ngFor="let casa of listaCasas;"
+            [casa]="casa"
+            class="my-3 mx-4"
+  ></app-casa>
+</div>

@@ -1,0 +1,38 @@
+nav {
+  background-color: #cb262c !important;
+}
+#roomID, #exitLink {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 35px;
+  color: white;
+}
+#memoria, #roomID strong {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  color: white;
+}
+h1 {
+  font-size: 2vh;
+  color: white;
+}
+#scoreBoard {
+  font-size: 5vh;
+  color: white;
+}
+.currentTurn {
+  background-color: #0bd4c1;
+}
+#turnLabel {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: black;
+}
+.playerInfo {
+  font-family: 'Hubballi', cursive;
+  font-weight: 400;
+  font-size: 20px;
+  color: black;
+}

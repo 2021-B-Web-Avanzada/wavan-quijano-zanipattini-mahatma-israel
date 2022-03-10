@@ -1,0 +1,18 @@
+<!-- Breadcrumb -->
+<nav class="container pt-4" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">Visualizar conjuntos</li>
+  </ol>
+</nav>
+<!-- Content -->
+<div class="d-flex flex-row justify-content-between px-5 py-3">
+  <h3 *ngIf="listaConjuntos.length > 0;">Los conjuntos registrados son:</h3>
+  <h3 *ngIf="listaConjuntos.length == 0;">No existen conjuntos registrados</h3>
+  <a [routerLink]="['/conjunto', 'crearConjunto']" class="btn btn-primary">Nuevo conjunto</a>
+</div>
+<div class="d-flex flex-row flex-wrap justify-content-start">
+  <app-conjunto *ngFor="let conjunto of listaConjuntos;"
+                [conjunto]="conjunto"
+                class="my-3 mx-4"
+  ></app-conjunto>
+</div>

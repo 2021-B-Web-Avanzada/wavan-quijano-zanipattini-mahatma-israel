@@ -1,1 +1,80 @@
-<p>ruta-usuario-perfil works!</p>
+<div *ngIf="usuarioActual">
+  <p>{{usuarioActual.name}}</p>
+</div>
+
+<!-- PrimeNG: Knob -->
+<p-knob [(ngModel)]="valorKnob" [min]="0" [max]="60"></p-knob>
+
+<!-- PrimeNG: SplitButton -->
+<p-splitButton label="Save" icon="pi pi-check"
+               (onClick)="guardar()"
+               [model]="items"
+></p-splitButton>
+
+<button id="basic" type="button"
+        color="accent"
+        mat-raised-button
+        (click)="abrirDialogo()"
+>Basic Button</button>
+
+<div class="container" *ngIf="formGroup">
+  <form [formGroup]="formGroup">
+    <div class="mb-3">
+      <!-- Email -->
+      <label for="email" class="form-label">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese email">
+      <div *ngIf="formGroup.get('email')">
+        <div class="alert alert-warning" role="alert"
+             *ngIf="
+             formGroup.get('email')?.invalid &&
+             formGroup.get('email')?.touched &&
+             formGroup.get('email')?.dirty
+        ">
+          <span *ngIf="formGroup.get('email')?.hasError('required')">
+            Correo requerido
+          </span>
+          <span *ngIf="formGroup.get('email')?.hasError('minlength')">
+            Mínimo de caracteres: 3
+          </span>
+        </div>
+      </div>
+      <!-- PrimeNG: InputSwitch -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Es administrador</label>
+        <p-inputSwitch formControlName="esAdministrador"></p-inputSwitch>
+        <div class="form-text">
+          Seleccione si es un administrador:
+        </div>
+      </div>
+      <button class="btn btn-primary" [disabled]="formGroup.invalid"
+              (click)="actualizarUsuario()"
+      >Guardar</button>
+      <!-- Phone -->
+      <br>
+      <label for="phone" class="form-label">Phone</label>
+      <input id="phone" type="text" class="form-control" aria-describedby="phoneHelp" placeholder="Ingrese phone">
+      <!-- Username -->
+      <label for="username" class="form-label">Username</label>
+      <input id="username" type="text" class="form-control" aria-describedby="usernameHelp" placeholder="Ingrese username">
+      <!-- Website -->
+      <label for="website" class="form-label">Website</label>
+      <input id="website" type="text" class="form-control" aria-describedby="websiteHelp" placeholder="Ingrese website">
+    </div>
+  </form>
+
+  <!-- NG Bootstrap -->
+<!--  <div class="btn-group btn-group-toggle">-->
+<!--    <label class="btn-primary" ngbButtonLabel>-->
+<!--      <input type="checkbox" ngbButton [(ngModel)]="model.left"> Left (pre-checked)-->
+<!--    </label>-->
+<!--    <label class="btn-primary" ngbButtonLabel>-->
+<!--      <input type="checkbox" ngbButton [(ngModel)]="model.middle"> Middle-->
+<!--    </label>-->
+<!--    <label class="btn-primary" ngbButtonLabel>-->
+<!--      <input type="checkbox" ngbButton [(ngModel)]="model.right"> Right-->
+<!--    </label>-->
+<!--  </div>-->
+
+</div>
+
+

@@ -1,0 +1,109 @@
+<!-- Breadcrumb -->
+<nav class="container pt-4" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/conjunto']">Visualizar conjuntos</a></li>
+    <li class="breadcrumb-item active">Crear nuevo conjunto</li>
+  </ol>
+</nav>
+<!-- Content -->
+<div class="d-flex flex-row justify-content-center px-5 py-3">
+  <h3>Crear nuevo conjunto</h3>
+</div>
+<div class="container d-flex flex-row justify-content-center" *ngIf="formConjunto">
+  <form action="" [formGroup]="formConjunto" class="col-6">
+    <!-- Nombre -->
+    <label for="nombre" class="form-label pt-3">Nombre:</label>
+    <input id="nombre" formControlName="nombre" type="text" class="form-control" placeholder="Ingrese el nombre del conjunto">
+    <div *ngIf="formConjunto.get('nombre');">
+      <div class="alert alert-warning" role="alert" *ngIf="formConjunto.get('nombre')?.invalid &&
+                                                           formConjunto.get('nombre')?.touched &&
+                                                           formConjunto.get('nombre')?.dirty">
+        <span *ngIf="formConjunto.get('nombre')?.hasError('required')">
+          Nombre requerido
+        </span>
+        <span *ngIf="formConjunto.get('nombre')?.hasError('minlength')">
+          El nombre debe contener al menos {{this.validationOptions.nombreMinLength}} caracteres
+        </span>
+        <span *ngIf="formConjunto.get('nombre')?.hasError('maxlength')">
+          El nombre debe contener un máximo de {{this.validationOptions.nombreMaxLength}} caracteres
+        </span>
+      </div>
+    </div>
+    <!-- Dirección -->
+    <label for="direccion" class="form-label pt-3">Dirección:</label>
+    <textarea id="direccion" formControlName="direccion" class="form-control" placeholder="Ingrese la dirección del conjunto" rows="2"></textarea>
+    <div *ngIf="formConjunto.get('direccion');">
+      <div class="alert alert-warning" role="alert" *ngIf="formConjunto.get('direccion')?.invalid &&
+                                                           formConjunto.get('direccion')?.touched &&
+                                                           formConjunto.get('direccion')?.dirty">
+        <span *ngIf="formConjunto.get('direccion')?.hasError('required')">
+          Dirección requerida
+        </span>
+        <span *ngIf="formConjunto.get('direccion')?.hasError('minlength')">
+          La direccion debe contener al menos {{this.validationOptions.direccionMinLength}} caracteres
+        </span>
+        <span *ngIf="formConjunto.get('direccion')?.hasError('maxlength')">
+          La dirección debe contener un máximo de {{this.validationOptions.direccionMaxLength}} caracteres
+        </span>
+      </div>
+    </div>
+    <!-- Área -->
+    <label for="area" class="form-label pt-3">Área (m²):</label>
+    <input id="area" formControlName="area" type="number" class="form-control" placeholder="Ingrese el área en m²">
+    <div *ngIf="formConjunto.get('area');">
+      <div class="alert alert-warning" role="alert" *ngIf="formConjunto.get('area')?.invalid &&
+                                                           formConjunto.get('area')?.touched &&
+                                                           formConjunto.get('area')?.dirty">
+        <span *ngIf="formConjunto.get('area')?.hasError('required')">
+          Área requerida
+        </span>
+        <span *ngIf="formConjunto.get('area')?.hasError('min')">
+          El área mínima es de {{this.validationOptions.areaMin}} m²
+        </span>
+        <span *ngIf="formConjunto.get('area')?.hasError('max')">
+          El área máxima es de {{this.validationOptions.areaMax}} m²
+        </span>
+      </div>
+    </div>
+    <!-- Fecha de apertura -->
+    <label for="fechaApertura" class="form-label pt-3">Fecha de apertura:</label>
+    <input id="fechaApertura" formControlName="fechaApertura" type="date" class="form-control" [max]="today">
+    <div *ngIf="formConjunto.get('fechaApertura');">
+      <div class="alert alert-warning" role="alert" *ngIf="formConjunto.get('fechaApertura')?.touched &&
+                                                           !formConjunto.get('fechaApertura')?.dirty">
+        <span>Fecha requerida</span>
+      </div>
+    </div>
+    <!-- Estrellas -->
+    <div class="d-flex flex-row pt-3">
+      <label for="estrellas" class="form-label">Calificación:</label>
+      <input id="estrellas" formControlName="estrellas" type="range" class="form-range mx-3" min="1" max="5">
+      <span id="score">{{score}}</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Star_icon_stylized.svg/1077px-Star_icon_stylized.svg.png" alt="" width="20" height="20" class="d-inline-block align-text-top mx-2">
+    </div>
+    <div *ngIf="formConjunto.get('estrellas');">
+      <div class="alert alert-warning" role="alert" *ngIf="formConjunto.get('estrellas')?.invalid &&
+                                                           formConjunto.get('estrellas')?.touched &&
+                                                           formConjunto.get('estrellas')?.dirty">
+        <span *ngIf="formConjunto.get('estrellas')?.hasError('required')">
+          Calificación requerida
+        </span>
+        <span *ngIf="formConjunto.get('estrellas')?.hasError('min')">
+          La calificación mínima es {{this.validationOptions.estrellasMin}}
+        </span>
+        <span *ngIf="formConjunto.get('estrellas')?.hasError('max')">
+          La calificación máxima es {{this.validationOptions.estrellasMax}}
+        </span>
+      </div>
+    </div>
+    <!-- Crear conjunto -->
+    <div class="d-flex flex-row justify-content-center pt-4">
+      <button class="btn btn-primary" [disabled]="formConjunto.invalid ||
+                                                  !formConjunto.get('fechaApertura')?.touched ||
+                                                  !formConjunto.get('fechaApertura')?.dirty"
+              (click)="createConjunto()">
+        Crear conjunto
+      </button>
+    </div>
+  </form>
+</div>

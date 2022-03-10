@@ -1,0 +1,78 @@
+<div class="container-fluid d-flex flex-row" *ngIf="formGroup">
+  <div class="col-6 col-xl-7">
+    <!-- Logo -->
+    <div id="logo" class="d-flex justify-content-center pt-0 pt-xxl-3 pb-0">
+      <img src="https://i.imgur.com/m3uaXlS.png" alt="logo" class="img-fluid">
+    </div>
+    <!-- Join room -->
+    <form [formGroup]="formGroup" class="d-flex justify-content-center">
+      <div class="col-12 col-lg-8 col-xl-6">
+        <!-- Nickname -->
+        <div class="mb-0">
+          <label for="nickname" class="form-label">Ingrese un nickname:</label>
+          <input type="text" formControlName="nickname" class="col-3 form-control" id="nickname" placeholder="Guest">
+        </div>
+        <div *ngIf="formGroup.get('nickname')">
+          <div class="alert alert-warning" role="alert"
+               *ngIf="formGroup.get('nickname')?.invalid &&
+                      formGroup.get('nickname')?.touched &&
+                      formGroup.get('nickname')?.dirty"
+          >
+            <span class="formWarning" *ngIf="formGroup.get('nickname')?.hasError('required')">
+              Se requiere un Nickname para jugar
+            </span>
+            <span class="formWarning" *ngIf="formGroup.get('nickname')?.hasError('minlength')">
+              El nickname debe tener 3 o más caracteres
+            </span>
+            <span class="formWarning" *ngIf="formGroup.get('nickname')?.hasError('maxlength')">
+              El nickname no puede tener más de 15 caracteres
+            </span>
+          </div>
+        </div>
+        <!-- Room ID -->
+        <div class="mb-0">
+          <label for="roomID" class="form-label">Ingrese el ID de la sala:</label>
+          <input type="text" formControlName="roomID" class="form-control" id="roomID" placeholder="ABC123">
+        </div>
+        <div *ngIf="formGroup.get('roomID')">
+          <div class="alert alert-warning" role="alert"
+               *ngIf="formGroup.get('roomID')?.invalid &&
+                      formGroup.get('roomID')?.touched &&
+                      formGroup.get('roomID')?.dirty"
+          >
+            <span class="formWarning" *ngIf="formGroup.get('roomID')?.hasError('required')">
+              Se requiere un ID para jugar
+            </span>
+            <span class="formWarning" *ngIf="formGroup.get('roomID')?.hasError('minlength')">
+              El ID debe tener 6 o más caracteres
+            </span>
+            <span class="formWarning" *ngIf="formGroup.get('roomID')?.hasError('maxlength')">
+              El ID no puede tener más de 15 caracteres
+            </span>
+          </div>
+        </div>
+        <!-- Join Room -->
+        <div class="d-flex justify-content-center mt-2">
+          <button type="submit" class="btn btn-primary mb-3" [disabled]="formGroup.invalid"
+                  (click)="joinGame()"
+          >
+            <span *ngIf="isNewRoom">Crear sala</span>
+            <span *ngIf="!isNewRoom">Unirse a la sala</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Instructions -->
+  <div class="col-6 col-xl-5 pt-5 pr-5 pb-5">
+    <h1 class="mx-0 mx-xl-5 my-5">Instrucciones:</h1>
+    <ol class="mx-0 mx-xl-5">
+      <li class="my-3">Ingresa un nickname con el que tus amigos puedan identificarte</li>
+      <li class="my-3">Ingresa el ID de la sala. Si la sala no existe se creará!</li>
+      <li class="my-3">Pueden participar hasta 5 jugadores a la vez</li>
+      <li class="my-3">Acumula puntos encontrando los pares de cartas que sean idénticas</li>
+      <li class="my-3">Si encuentras un par idéntico tendrás un turno extra!</li>
+    </ol>
+  </div>
+</div>
+
